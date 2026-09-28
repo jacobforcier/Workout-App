@@ -366,7 +366,7 @@ function WeeklyPlanEditor({ form, onChange }: { form: AthleteInput; onChange: (p
             ? 'Used every week, including the first two.'
             : form.kind === 'kid'
               ? 'Off: Foundation for 2 weeks, then Foundation, Family circuit, and Recovery.'
-              : 'Off: Foundation for 2 weeks, then the default rotation. Without a pull-up bar or dip bars it uses the Joe Rogan podcast version.'
+              : 'Off: Foundation for 2 weeks, 4 building-up weeks, then the full plan. Without a pull-up bar or dip bars it uses the Joe Rogan podcast version.'
         }
         checked={plan !== null}
         onChange={(on) => onChange(on ? defaultWeeklyPlan(form) : null)}

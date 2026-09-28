@@ -85,6 +85,7 @@
     "estimatedMinutes": 45,
     "recommendedFrequency": "2–3× per week",
     "kidSafe": false,
+    "hingeHeavy": true,
     "notes": [
       "The version Joe Rogan has described on his podcast. For chin-ups, dips, and overhead squats, see Joe Rogan (Onnit version).",
       "Pick a bell that leaves reps in the tank. The goal is crisp, controlled reps, not training to failure.",
@@ -122,6 +123,7 @@
     "estimatedMinutes": 35,
     "recommendedFrequency": "Up to daily when easy; 2–3× per week to start",
     "kidSafe": false,
+    "hingeHeavy": true,
     "notes": [
       "Beginner option: use two-hand swings instead of one-arm swings.",
       "Beginner option: do get-ups with no bell, or balance a shoe on your fist."
@@ -163,6 +165,7 @@
     "estimatedMinutes": 15,
     "recommendedFrequency": "1–2× per week",
     "kidSafe": false,
+    "hingeHeavy": true,
     "notes": [
       "EMOM = every minute on the minute. Start swinging at the beep; rest when done until the next beep."
     ],

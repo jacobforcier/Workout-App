@@ -4,9 +4,16 @@ import { exerciseName, getExercise, isLoaded, type RestGuidance, type Workout, t
  * Progression: suggest (never force) an increase when an athlete hits every
  * target rep for a unit with RPE ≤ 7 in two consecutive sessions of the same
  * workout. Order: add a set/round (up to the max) → shorten rest → next bell.
+ *
+ * It also suggests stepping back: after two sessions at RPE ≥ 9, or when reps
+ * fell short in both of the last two sessions (and the latest felt hard).
  */
 
 export const PROGRESSION_MAX_RPE = 7
+/** Two sessions in a row at or above this → suggest a lighter session. */
+export const STEP_BACK_RPE = 9
+/** Missed reps twice, and the latest session at or above this → step back on that unit. */
+export const MISSED_REPS_RPE = 8
 export const REST_STEP_SEC = 15
 
 export interface SetLogLike {
@@ -39,13 +46,13 @@ export interface ProgressionUnit {
   rest?: RestGuidance
 }
 
-export type SuggestionKind = 'add_set' | 'shorten_rest' | 'next_bell' | 'add_reps'
+export type SuggestionKind = 'add_set' | 'shorten_rest' | 'next_bell' | 'add_reps' | 'step_back'
 
 export interface Suggestion {
   unitKey: string
   label: string
   kind: SuggestionKind
-  /** add_set: sets/rounds. shorten_rest: seconds. next_bell: lb. */
+  /** add_set: sets/rounds. shorten_rest: seconds. next_bell / step_back: lb (step_back may have none). */
   from?: number
   to?: number
   message: string
@@ -142,6 +149,22 @@ function unitIsLoaded(unit: ProgressionUnit): boolean {
   return unit.items.some((i) => isLoaded(i.exerciseId))
 }
 
+/** Some logged set fell short of its target (skipped sets don't count as missed). */
+export function missedReps(unit: ProgressionUnit, logs: SetLogLike[]): boolean {
+  return unit.items.some((item) =>
+    logsForItem(item, logs).some((l) => {
+      if (item.reps !== undefined) return l.reps !== null && l.reps < item.reps
+      if (item.seconds !== undefined) return l.seconds !== null && l.seconds < item.seconds
+      return false
+    }),
+  )
+}
+
+export function previousBell(current: number, available: number[]): number | null {
+  const smaller = available.filter((b) => b < current).sort((a, b) => b - a)
+  return smaller[0] ?? null
+}
+
 export function nextBell(current: number, available: number[]): number | null {
   const bigger = available.filter((b) => b > current).sort((a, b) => a - b)
   return bigger[0] ?? null
@@ -161,9 +184,47 @@ export function suggestProgressions({ workout, sessions, currentBellLb, availabl
     .sort((a, b) => (a.performed_on < b.performed_on ? 1 : a.performed_on > b.performed_on ? -1 : 0))
     .slice(0, 2)
   if (recent.length < 2) return []
+  const [latest] = recent
+  const lighter = previousBell(currentBellLb, availableBellsLb)
+
+  // Two very hard sessions: one workout-wide step back, nothing else.
+  if (recent.every((s) => s.rpe !== null && s.rpe >= STEP_BACK_RPE)) {
+    return [
+      {
+        unitKey: 'workout',
+        label: workout.name,
+        kind: 'step_back',
+        from: currentBellLb,
+        to: lighter ?? undefined,
+        message: lighter
+          ? `${workout.name} felt very hard twice in a row. Next time use the ${lighter} lb bell and rebuild from there.`
+          : `${workout.name} felt very hard twice in a row. Next time do one fewer set of each exercise and rebuild from there.`,
+      },
+    ]
+  }
+
+  // Reps fell short twice and it felt hard: step back on that unit.
+  if (latest.rpe !== null && latest.rpe >= MISSED_REPS_RPE) {
+    const back = progressionUnits(workout)
+      .filter((unit) => recent.every((s) => missedReps(unit, s.set_logs)))
+      .map((unit): Suggestion => {
+        const useLighter = lighter !== null && unitIsLoaded(unit)
+        return {
+          unitKey: unit.key,
+          label: unit.label,
+          kind: 'step_back',
+          from: useLighter ? currentBellLb : undefined,
+          to: useLighter ? lighter : undefined,
+          message: useLighter
+            ? `${unit.label}: reps came up short twice. Try the ${lighter} lb bell until every rep is clean.`
+            : `${unit.label}: reps came up short twice. Do one fewer ${unit.format === 'circuit' ? 'round' : 'set'} until every rep is clean.`,
+        }
+      })
+    if (back.length) return back
+  }
+
   if (!recent.every((s) => s.rpe !== null && s.rpe <= PROGRESSION_MAX_RPE)) return []
 
-  const [latest] = recent
   const suggestions: Suggestion[] = []
 
   for (const unit of progressionUnits(workout)) {

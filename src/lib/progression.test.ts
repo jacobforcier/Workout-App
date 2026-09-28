@@ -203,4 +203,31 @@ describe('suggestProgressions', () => {
     expect(suggestions).toHaveLength(4)
     expect(suggestions.every((s) => s.kind === 'next_bell' && s.to === 44)).toBe(true)
   })
+
+  it('steps back to a lighter bell after two very hard sessions', () => {
+    const sessions = [session('a', '2026-09-01', 9, joeRoganLogs(3)), session('b', '2026-09-03', 10, joeRoganLogs(3))]
+    const out = suggestProgressions({ workout: joeRogan, sessions, ...base })
+    expect(out).toHaveLength(1)
+    expect(out[0]).toMatchObject({ kind: 'step_back', unitKey: 'workout', from: 35, to: 26 })
+  })
+
+  it('steps back with fewer sets when there is no lighter bell', () => {
+    const sessions = [session('a', '2026-09-01', 9, joeRoganLogs(3)), session('b', '2026-09-03', 9, joeRoganLogs(3))]
+    const [s] = suggestProgressions({ workout: joeRogan, sessions, currentBellLb: 26, availableBellsLb: [26, 35] })
+    expect(s.kind).toBe('step_back')
+    expect(s.to).toBeUndefined()
+    expect(s.message).toContain('one fewer set')
+  })
+
+  it('steps back on a unit whose reps fell short twice', () => {
+    const short = joeRoganLogs(3).map((l) => (l.exercise_id === 'dip' ? { ...l, reps: 3 } : l))
+    const sessions = [session('a', '2026-09-01', 7, short), session('b', '2026-09-03', 8, short)]
+    const [s] = suggestProgressions({ workout: joeRogan, sessions, ...base })
+    expect(s).toMatchObject({ kind: 'step_back', unitKey: '0', to: 26 })
+  })
+
+  it('does not treat skipped sets as missed reps', () => {
+    const sessions = [session('a', '2026-09-01', 8, joeRoganLogs(2)), session('b', '2026-09-03', 8, joeRoganLogs(2))]
+    expect(suggestProgressions({ workout: joeRogan, sessions, ...base })).toEqual([])
+  })
 })
