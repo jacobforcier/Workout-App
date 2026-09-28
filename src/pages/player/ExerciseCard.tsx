@@ -1,6 +1,7 @@
 import { Pill } from '../../components/ui'
 import { exerciseName, getExercise, type WorkoutItem } from '../../content'
 import { targetText } from '../../lib/plan'
+import VideoLink from '../../components/VideoLink'
 
 /** Full exercise view for single-exercise steps (sets, timed, EMOM). */
 export default function ExerciseCard({
@@ -58,6 +59,8 @@ export default function ExerciseCard({
           ))}
         </ul>
       )}
+
+      <VideoLink exerciseId={exerciseId} />
 
       {exercise && <HowTo exerciseId={exercise.id} kidMode={kidMode} />}
 

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type Dispatch, type 
 import { Link, useNavigate, useParams } from 'react-router'
 import Badges from '../components/Badges'
 import Suggestions from '../components/Suggestions'
+import VideoLink from '../components/VideoLink'
 import { Button, Card, ErrorBox, PageTitle, Pill, Spinner, Stepper, SuperviseBanner } from '../components/ui'
 import { exerciseName, getWorkout, isLoaded, type Workout } from '../content'
 import { useAsync } from '../hooks/useAsync'
@@ -643,6 +644,7 @@ function ChecklistView({
                           ))}
                         </select>
                       )}
+                      <VideoLink exerciseId={exId} compact />
                       <HowTo exerciseId={exId} kidMode={kidMode} />
                     </div>
                   </details>

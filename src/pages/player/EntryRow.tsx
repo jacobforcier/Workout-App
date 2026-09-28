@@ -5,6 +5,7 @@ import { targetText, type Entry, type EntryLog } from '../../lib/plan'
 import BellPicker from './BellPicker'
 import { HowTo, SwapSelect } from './ExerciseCard'
 import HoldTimer from './HoldTimer'
+import VideoLink from '../../components/VideoLink'
 
 /**
  * One exercise inside a round or the warm-up checklist. Collapsed it shows the
@@ -81,6 +82,7 @@ export default function EntryRow({
             </div>
           )}
           {options.length > 1 && <SwapSelect item={item} exerciseId={exerciseId} options={options} onSwap={onSwap} />}
+          <VideoLink exerciseId={exerciseId} compact />
           <HowTo exerciseId={exerciseId} kidMode={kidMode} />
         </div>
       )}

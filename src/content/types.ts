@@ -10,6 +10,8 @@ export interface Exercise {
   formCues: string[]
   commonMistakes: string[]
   videoUrl: string | null
+  /** Title of the linked video, shown next to the link. */
+  videoTitle: string | null
   substitutions: string[]
 }
 

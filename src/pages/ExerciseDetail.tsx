@@ -1,6 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router'
 import { Card, ErrorBox, PageTitle, Pill } from '../components/ui'
 import { exerciseName, getExercise } from '../content'
+import VideoLink from '../components/VideoLink'
 import { useApp } from '../state/AppContext'
 
 const EQUIPMENT_LABEL: Record<string, string> = {
@@ -30,6 +31,8 @@ export default function ExerciseDetail() {
         {exercise.equipment.length === 0 ? <Pill>No equipment</Pill> : exercise.equipment.map((e) => <Pill key={e}>{EQUIPMENT_LABEL[e] ?? e}</Pill>)}
         {exercise.kidSafe ? <Pill tone="green">Kid-safe</Pill> : <Pill>Adults</Pill>}
       </div>
+
+      <VideoLink exerciseId={exercise.id} />
 
       <Card>
         <h2 className="mb-2 text-lg font-extrabold">{kidMode ? 'How to do it' : 'Steps'}</h2>
@@ -73,11 +76,6 @@ export default function ExerciseDetail() {
         </Card>
       )}
 
-      {exercise.videoUrl && (
-        <a href={exercise.videoUrl} target="_blank" rel="noreferrer" className="font-semibold text-brand-700 underline dark:text-brand-500">
-          Watch a video
-        </a>
-      )}
     </div>
   )
 }
