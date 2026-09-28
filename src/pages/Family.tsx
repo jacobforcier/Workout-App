@@ -2,6 +2,8 @@ import { useState, type FormEvent } from 'react'
 import { Button, Card, ErrorBox, Field, inputClass, PageTitle, Pill, Spinner, Toggle } from '../components/ui'
 import { useAsync } from '../hooks/useAsync'
 import { createAthlete, createInvite, deleteAthlete, deleteInvite, listInvites, listMembers, updateAthlete } from '../lib/api'
+import { getWorkout, workouts } from '../content'
+import { defaultWeeklyPlan, PLAN_DAYS } from '../lib/rotation'
 import type { Athlete, AthleteInput } from '../lib/types'
 import { useApp } from '../state/AppContext'
 
@@ -15,6 +17,7 @@ const blankAthlete = (kind: Athlete['kind'] = 'adult'): AthleteInput => ({
   available_bells_lb: kind === 'kid' ? [9, 13] : [18, 26, 35],
   has_pullup_bar: false,
   has_dip_bars: false,
+  custom_rotation: null,
 })
 
 export default function Family() {
@@ -70,7 +73,7 @@ export default function Family() {
               initial={a}
               onCancel={() => setEditing(null)}
               onSave={async (input) => {
-                await updateAthlete(a.id, input)
+                await updateAthlete(a.id, input, a.custom_rotation != null && input.custom_rotation === null)
                 await reloadAthletes()
                 setEditing(null)
               }}
@@ -94,6 +97,7 @@ export default function Family() {
                   <Pill>{a.kind}</Pill>
                   {a.has_pullup_bar && <Pill tone="blue">Pull-up bar</Pill>}
                   {a.has_dip_bars && <Pill tone="blue">Dip bars</Pill>}
+                  {a.custom_rotation && <Pill tone="brand">Own weekly plan</Pill>}
                 </div>
               </div>
               {!kidMode && (
@@ -137,6 +141,7 @@ function AthleteForm({
     available_bells_lb: [...initial.available_bells_lb],
     has_pullup_bar: initial.has_pullup_bar,
     has_dip_bars: initial.has_dip_bars,
+    custom_rotation: initial.custom_rotation ? [...initial.custom_rotation] : null,
   })
   const [customBell, setCustomBell] = useState('')
   const [busy, setBusy] = useState(false)
@@ -180,7 +185,7 @@ function AthleteForm({
 
         <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Type">
           {(['adult', 'kid'] as const).map((k) => (
-            <Button key={k} variant={form.kind === k ? 'primary' : 'secondary'} aria-checked={form.kind === k} role="radio" onClick={() => set('kind', k)}>
+            <Button key={k} variant={form.kind === k ? 'primary' : 'secondary'} aria-checked={form.kind === k} role="radio" onClick={() => setForm((f) => ({ ...f, kind: k, custom_rotation: f.custom_rotation ? defaultWeeklyPlan({ ...f, kind: k }) : null }))}>
               {k === 'adult' ? 'Adult' : 'Kid'}
             </Button>
           ))}
@@ -240,6 +245,8 @@ function AthleteForm({
 
         <Toggle label="Has a pull-up bar" checked={form.has_pullup_bar} onChange={(v) => set('has_pullup_bar', v)} />
         <Toggle label="Has dip bars" checked={form.has_dip_bars} onChange={(v) => set('has_dip_bars', v)} />
+
+        <WeeklyPlanEditor form={form} onChange={(plan) => set('custom_rotation', plan)} />
 
         {error && <ErrorBox error={error} title="Couldn't save" />}
 
@@ -344,5 +351,45 @@ function Household({ isOwner, householdId, userId }: { isOwner: boolean; househo
         </Card>
       )}
     </section>
+  )
+}
+
+function WeeklyPlanEditor({ form, onChange }: { form: AthleteInput; onChange: (plan: (string | null)[] | null) => void }) {
+  const plan = form.custom_rotation
+  const choices = workouts.filter((w) => form.kind === 'adult' || w.kidSafe)
+  return (
+    <div className="flex flex-col gap-2 rounded-2xl bg-slate-50 p-3 dark:bg-slate-800/50">
+      <Toggle
+        label="Use my own weekly plan"
+        hint={
+          plan
+            ? 'Used every week, including the first two.'
+            : form.kind === 'kid'
+              ? 'Off: Foundation for 2 weeks, then Foundation, Family circuit, and Recovery.'
+              : 'Off: Foundation for 2 weeks, then the default rotation. Without a pull-up bar or dip bars it uses the Joe Rogan podcast version.'
+        }
+        checked={plan !== null}
+        onChange={(on) => onChange(on ? defaultWeeklyPlan(form) : null)}
+      />
+      {plan &&
+        PLAN_DAYS.map((day, i) => (
+          <label key={day} className="flex items-center gap-3">
+            <span className="w-24 shrink-0 font-semibold">{day}</span>
+            <select
+              className={inputClass}
+              value={plan[i] ?? ''}
+              onChange={(e) => onChange(plan.map((v, j) => (j === i ? e.target.value || null : v)))}
+            >
+              <option value="">Rest or walk</option>
+              {choices.map((w) => (
+                <option key={w.id} value={w.id}>
+                  {w.name}
+                </option>
+              ))}
+              {plan[i] && !choices.some((w) => w.id === plan[i]) && <option value={plan[i]!}>{getWorkout(plan[i]!)?.name ?? plan[i]}</option>}
+            </select>
+          </label>
+        ))}
+    </div>
   )
 }

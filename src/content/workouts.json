@@ -78,6 +78,43 @@
     ]
   },
   {
+    "id": "joe_rogan_podcast",
+    "name": "Joe Rogan (podcast version)",
+    "summary": "Squats and push-ups to warm up, then one-arm swings, clean and press, windmills, and renegade rows. Clean, controlled sets with long rests.",
+    "level": "intermediate",
+    "estimatedMinutes": 45,
+    "recommendedFrequency": "2–3× per week",
+    "kidSafe": false,
+    "notes": [
+      "The version Joe Rogan has described on his podcast. For chin-ups, dips, and overhead squats, see Joe Rogan (Onnit version).",
+      "Pick a bell that leaves reps in the tank. The goal is crisp, controlled reps, not training to failure.",
+      "Only one bell? Do renegade rows one side at a time with your other hand on the floor."
+    ],
+    "warmup": [
+      {
+        "title": "Warm-up",
+        "format": "circuit",
+        "rounds": 2,
+        "items": [
+          { "exerciseId": "bodyweight_squat", "reps": 20, "perSide": false },
+          { "exerciseId": "push_up", "reps": 20, "perSide": false }
+        ]
+      }
+    ],
+    "main": [
+      {
+        "title": "Kettlebell work",
+        "format": "sets",
+        "items": [
+          { "exerciseId": "one_arm_swing", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 120, "guidance": "Rest at least 2 minutes. Recover fully so every rep stays clean and controlled." } },
+          { "exerciseId": "kb_clean_and_press", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 120, "guidance": "Rest at least 2 minutes. Recover fully so every rep stays clean and controlled." } },
+          { "exerciseId": "windmill", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 120, "guidance": "Rest at least 2 minutes. Recover fully so every rep stays clean and controlled." } },
+          { "exerciseId": "renegade_row", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 120, "guidance": "Rest at least 2 minutes. Recover fully so every rep stays clean and controlled." } }
+        ]
+      }
+    ]
+  },
+  {
     "id": "simple_sinister",
     "name": "Simple & Sinister",
     "summary": "100 one-arm swings and 10 Turkish get-ups. Short, simple, and very effective.",

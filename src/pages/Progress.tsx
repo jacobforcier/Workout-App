@@ -45,7 +45,7 @@ function ProgressFor({ athlete }: { athlete: Athlete }) {
   const sessions = sessionsQ.data
   const derived = useMemo(() => {
     if (!sessions) return null
-    const stats = athleteStats(sessions, athlete.kind, todayDate)
+    const stats = athleteStats(sessions, athlete, todayDate)
     return {
       stats,
       grid: heatmap(stats.sessionDates, WEEKS, todayDate),
@@ -54,7 +54,7 @@ function ProgressFor({ athlete }: { athlete: Athlete }) {
       bells: bellHistory(sessions).map((b) => ({ label: formatDate(b.date), value: b.bell })),
       recent: [...sessions].reverse().slice(0, 10),
     }
-  }, [sessions, athlete.kind, todayDate])
+  }, [sessions, athlete, todayDate])
 
   return (
     <div className="flex flex-col gap-4">

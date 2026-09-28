@@ -31,6 +31,8 @@ export interface Athlete {
   available_bells_lb: number[]
   has_pullup_bar: boolean
   has_dip_bars: boolean
+  /** Monday-first weekly plan (workout id or null = rest). null = default rotation. */
+  custom_rotation: (string | null)[] | null
   created_at: string
 }
 

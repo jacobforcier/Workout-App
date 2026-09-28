@@ -15,6 +15,7 @@ const joeRogan = getWorkout('joe_rogan') as Workout
 const foundation = getWorkout('foundation') as Workout
 const simpleSinister = getWorkout('simple_sinister') as Workout
 const emom = getWorkout('swing_emom') as Workout
+const joePodcast = getWorkout('joe_rogan_podcast') as Workout
 
 function log(exercise_id: string, set_number: number, reps: number, side: SetLogLike['side'] = 'both', rest_sec: number | null = null): SetLogLike {
   return { exercise_id, set_number, reps, seconds: null, side, rest_sec }
@@ -190,5 +191,16 @@ describe('suggestProgressions', () => {
     const sessions = [session('a', '2026-09-01', 6, logs), session('b', '2026-09-03', 6, logs)]
     const [s] = suggestProgressions({ workout: emom, sessions, ...base })
     expect(s).toMatchObject({ kind: 'next_bell', to: 44 })
+  })
+
+  it('suggests the next bell for the podcast version (fixed sets, full rest)', () => {
+    const logs: SetLogLike[] = []
+    for (const id of ['one_arm_swing', 'kb_clean_and_press', 'windmill', 'renegade_row']) {
+      for (let s = 1; s <= 3; s++) logs.push(log(id, s, 10, 'left'), log(id, s, 10, 'right', 120))
+    }
+    const sessions = [session('a', '2026-09-01', 6, logs), session('b', '2026-09-03', 7, logs)]
+    const suggestions = suggestProgressions({ workout: joePodcast, sessions, ...base })
+    expect(suggestions).toHaveLength(4)
+    expect(suggestions.every((s) => s.kind === 'next_bell' && s.to === 44)).toBe(true)
   })
 })
