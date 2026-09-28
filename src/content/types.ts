@@ -64,6 +64,8 @@ export interface Workout {
   estimatedMinutes: number
   recommendedFrequency: string
   kidSafe: boolean
+  /** Lots of swings/hinging: the scheduler avoids putting two of these on consecutive days. */
+  hingeHeavy?: boolean
   notes: string[]
   warmup: WorkoutBlock[]
   main: WorkoutBlock[]

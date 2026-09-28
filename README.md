@@ -116,27 +116,58 @@ npm run build
 
 ## How the app works
 
-### Weekly rotation (`src/lib/rotation.ts`)
+### Weekly plans (`src/lib/rotation.ts`)
 
-Week 1 starts with the athlete's first logged session.
+Week 1 starts with the athlete's first logged session. Each calendar week (Mon–Sun) gets one plan:
 
-- **Weeks 1–2 (everyone):** Foundation on Mon, Wed, and Fri, and Recovery on the other days.
-- **Adults, from week 3:** Mon Joe Rogan · Tue Swing EMOM · Wed Recovery · Thu Joe Rogan · Fri Simple & Sinister · Sat Family circuit · Sun rest or walk. Athletes with no pull-up bar and no dip bars get **Joe Rogan (podcast version)** on Mon and Thu instead, since it only needs a kettlebell.
+- **Weeks 1–2, intro (everyone):** Foundation on Mon, Wed, and Fri, and Recovery on the other days.
+- **Adults, weeks 3–6, building up:** Mon Joe Rogan · Tue Recovery · Wed Swing EMOM · Thu Recovery · Fri Simple & Sinister · Sat Family circuit · Sun rest. That's four harder days instead of five, with the swing-heavy days never back to back.
+- **Adults, week 7 on, full plan:** Mon Joe Rogan · Tue Swing EMOM · Wed Recovery · Thu Joe Rogan · Fri Simple & Sinister · Sat Family circuit · Sun rest or walk.
+- **Adults with no pull-up bar and no dip bars:** Joe Rogan (podcast version) replaces the Onnit version. The podcast version is swing-heavy, so their full plan is Mon Rogan (podcast) · Tue Recovery · Wed Family circuit · Thu Rogan (podcast) · Fri Recovery · Sat Simple & Sinister · Sun rest.
 - **Kids, from week 3:** only Family circuit, Recovery, and Foundation. Mon Foundation · Tue Recovery · Wed Family · Thu Recovery · Fri Foundation · Sat Family · Sun rest.
 
-**Own weekly plan:** in **Family → Edit**, turn on **Use my own weekly plan** and pick a workout (or rest) for each day. It replaces the default rotation, including the two intro weeks. Kids can only pick kid-safe workouts.
+Workouts marked `hingeHeavy` in `workouts.json` (Swing EMOM, Simple & Sinister, Joe Rogan podcast version) are never scheduled on consecutive days.
 
-### Streaks (`src/lib/streak.ts`)
+**Own weekly plan:** in **Family → Edit**, turn on **Use my own weekly plan** and pick a workout (or rest) for each day. It replaces the default plan every week, including the intro weeks. Kids can only pick kid-safe workouts.
 
-A streak counts consecutive days with a completed session, and Recovery counts. A planned rest day (Sunday) doesn't break a streak. The day in progress doesn't break it either until the day is over. Kid badges unlock at 3, 7, 14, and 30 days.
+### What Today suggests (`src/lib/schedule.ts`)
+
+The weekly plan sets what to do this week and in what order. Today suggests the **next workout in that order that hasn't been done yet**, not whatever the calendar day says:
+
+- **Missed Monday?** On Tuesday it suggests Monday's workout. Missed Recovery days are dropped; harder sessions carry over.
+- **Swaps count.** A different workout fills the next open slot of the same kind (harder or recovery).
+- **Swing-heavy yesterday?** It picks the next easier workout instead, or Recovery.
+- **Planned rest day:** it offers a catch-up only if you're behind.
+- **Weekly goal:** Today shows harder sessions done out of those planned this week, plus weeks in a row that hit the goal. The week in progress never breaks that streak.
+- **Never miss twice:** after a missed harder day, Today suggests a Recovery day so the habit keeps going.
+
+### Daily streaks and badges (`src/lib/streak.ts`)
+
+Kids' badges still use a daily streak: consecutive days with a completed session. Recovery counts, and a planned rest day doesn't break the streak. Badges unlock at 3, 7, 14, and 30 days. Progress shows the best daily streak.
+
+### Session player (`src/lib/plan.ts`)
+
+Targets are pre-filled, so one tap logs a step:
+
+- The whole warm-up is one checklist step. It's logged at its targets.
+- A circuit round is one step. Tap an exercise to change its numbers, swap it, or see how to do it.
+- A per-side set logs both sides with one tap.
+- In a sets block, **All N remaining sets done** logs the rest of that exercise at once.
+
+Each exercise shows **Last time**, from the athlete's last session of the same workout. The finish screen lists **new records**: a heavier bell, more reps in a set at the same weight, or a longer hold than ever before.
 
 ### Progression (`src/lib/progression.ts`)
 
-A suggestion appears when an athlete hits every target rep for an exercise, circuit, or EMOM, with RPE ≤ 7, in the two most recent sessions of the same workout. The suggestions come in this order:
+A suggestion to progress appears when an athlete hits every target rep for an exercise, circuit, or EMOM, with RPE ≤ 7, in the two most recent sessions of the same workout. The suggestions come in this order:
 
 1. **Add a set or round**, up to the workout's max (for example, Joe Rogan 3 → 5 rounds).
 2. **Shorten rest** by 15 s at a time, down to the workout's minimum. The rest actually used is logged per set in `set_logs.rest_sec`.
 3. **Move to the next available bell** from the athlete's bells.
+
+It also suggests a **step back**:
+
+- **Two very hard sessions in a row (RPE ≥ 9):** use the next lighter bell, or do one fewer set.
+- **Reps short in both of the last two sessions, and the latest felt hard (RPE ≥ 8):** go lighter on that exercise or do one fewer set. Skipped sets don't count as missed reps.
 
 Suggestions show on Today, on the session start screen (with **Apply**), and on the finish screen. They are never forced.
 

@@ -8,6 +8,7 @@ import { useAsync } from '../hooks/useAsync'
 import { addBenchmark, addBodyMetric, listBenchmarks, listBodyMetrics, listSessionsWithLogs } from '../lib/api'
 import { formatDate, formatDuration, today } from '../lib/dates'
 import { bellHistory, heatmap, sessionsPerWeek, swingsPerWeek } from '../lib/progressData'
+import { weeklyStreak } from '../lib/schedule'
 import { athleteStats } from '../lib/stats'
 import type { Athlete } from '../lib/types'
 import { useApp } from '../state/AppContext'
@@ -48,6 +49,7 @@ function ProgressFor({ athlete }: { athlete: Athlete }) {
     const stats = athleteStats(sessions, athlete, todayDate)
     return {
       stats,
+      weeks: weeklyStreak(todayDate, athlete, sessions, stats.firstSessionDate),
       grid: heatmap(stats.sessionDates, WEEKS, todayDate),
       perWeek: sessionsPerWeek(sessions, WEEKS, todayDate).map((w) => ({ label: w.label, value: w.value })),
       swings: swingsPerWeek(sessions, WEEKS, todayDate).map((w) => ({ label: w.label, value: w.value })),
@@ -66,8 +68,8 @@ function ProgressFor({ athlete }: { athlete: Athlete }) {
       {derived && (
         <>
           <div className="grid grid-cols-3 gap-3">
-            <Stat label="Streak" value={`🔥 ${derived.stats.streak}`} />
-            <Stat label="Best streak" value={String(derived.stats.bestStreak)} />
+            <Stat label="Weeks in a row" value={`🔥 ${derived.weeks}`} />
+            <Stat label="Best day streak" value={String(derived.stats.bestStreak)} />
             <Stat label="Sessions" value={String(derived.stats.sessionDates.length)} />
           </div>
 
