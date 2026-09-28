@@ -11,7 +11,7 @@ describe('content', () => {
     for (const e of exercises) {
       for (const sub of e.substitutions) expect(getExercise(sub), `${e.id} → ${sub}`).toBeDefined()
       if (e.videoUrl !== null) {
-        expect(e.videoUrl, e.id).toMatch(/^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}$/)
+        expect(e.videoUrl, e.id).toMatch(/^https:\/\/www\.youtube\.com\/(watch\?v=|shorts\/)[\w-]{11}$/)
         expect(e.videoTitle, e.id).toBeTruthy()
       }
     }

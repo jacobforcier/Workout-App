@@ -22,7 +22,7 @@ Workout and exercise content is versioned in the repo as JSON:
 - `src/content/exercises.json`
 - `src/content/workouts.json`
 
-Each exercise can link to one tutorial video (`videoUrl`, `videoTitle`). The app opens it in YouTube, so a workout in progress stays put. Links were chosen from search results and checked by hand. To change one, edit the exercise's `videoUrl` (a `https://www.youtube.com/watch?v=…` link) and `videoTitle`.
+Each exercise can link to one tutorial video (`videoUrl`, `videoTitle`). The app opens it in YouTube, so a workout in progress stays put. Links were chosen from search results and checked by hand. To change one, edit the exercise's `videoUrl` (a `https://www.youtube.com/watch?v=…` or `https://www.youtube.com/shorts/…` link) and `videoTitle`.
 
 Edit those files and push. `npm test` checks that every referenced exercise exists and that kid-safe workouts only use kid-safe exercises.
 
