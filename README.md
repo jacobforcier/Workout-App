@@ -43,6 +43,7 @@ The SQL lives in `supabase/migrations/`:
 | --- | --- |
 | `20260928000000_initial_schema.sql` | Tables, `is_household_member()`, and RLS on every table |
 | `20260928000100_household_bootstrap.sql` | `ensure_household()`, which creates the household on first sign-up or claims an invite |
+| `20260928000200_lock_down_function_grants.sql` | Removes the default `anon` permission to run these functions |
 
 You can run them in either of two ways.
 
