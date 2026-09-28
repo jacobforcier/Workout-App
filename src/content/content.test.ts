@@ -10,7 +10,10 @@ describe('content', () => {
   it('references only known exercises', () => {
     for (const e of exercises) {
       for (const sub of e.substitutions) expect(getExercise(sub), `${e.id} → ${sub}`).toBeDefined()
-      expect(e.videoUrl).toBeNull()
+      if (e.videoUrl !== null) {
+        expect(e.videoUrl, e.id).toMatch(/^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}$/)
+        expect(e.videoTitle, e.id).toBeTruthy()
+      }
     }
     for (const w of workouts) {
       for (const block of [...w.warmup, ...w.main]) {
