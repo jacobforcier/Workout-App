@@ -44,6 +44,7 @@ The SQL lives in `supabase/migrations/`:
 | `20260928000000_initial_schema.sql` | Tables, `is_household_member()`, and RLS on every table |
 | `20260928000100_household_bootstrap.sql` | `ensure_household()`, which creates the household on first sign-up or claims an invite |
 | `20260928000200_lock_down_function_grants.sql` | Removes the default `anon` permission to run these functions |
+| `20260928000300_athlete_custom_rotation.sql` | Adds an optional per-athlete weekly plan (`athletes.custom_rotation`) |
 
 You can run them in either of two ways.
 
@@ -120,8 +121,10 @@ npm run build
 Week 1 starts with the athlete's first logged session.
 
 - **Weeks 1–2 (everyone):** Foundation on Mon, Wed, and Fri, and Recovery on the other days.
-- **Adults, from week 3:** Mon Joe Rogan · Tue Swing EMOM · Wed Recovery · Thu Joe Rogan · Fri Simple & Sinister · Sat Family circuit · Sun rest or walk.
+- **Adults, from week 3:** Mon Joe Rogan · Tue Swing EMOM · Wed Recovery · Thu Joe Rogan · Fri Simple & Sinister · Sat Family circuit · Sun rest or walk. Athletes with no pull-up bar and no dip bars get **Joe Rogan (podcast version)** on Mon and Thu instead, since it only needs a kettlebell.
 - **Kids, from week 3:** only Family circuit, Recovery, and Foundation. Mon Foundation · Tue Recovery · Wed Family · Thu Recovery · Fri Foundation · Sat Family · Sun rest.
+
+**Own weekly plan:** in **Family → Edit**, turn on **Use my own weekly plan** and pick a workout (or rest) for each day. It replaces the default rotation, including the two intro weeks. Kids can only pick kid-safe workouts.
 
 ### Streaks (`src/lib/streak.ts`)
 

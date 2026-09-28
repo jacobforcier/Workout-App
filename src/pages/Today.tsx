@@ -39,8 +39,8 @@ function TodayFor() {
   const todayDate = today()
 
   const sessionsQ = useAsync(() => listSessions(athlete.id), [athlete.id])
-  const stats = useMemo(() => (sessionsQ.data ? athleteStats(sessionsQ.data, athlete.kind, todayDate) : null), [sessionsQ.data, athlete.kind, todayDate])
-  const rotation = stats ? rotationFor(todayDate, athlete.kind, stats.firstSessionDate) : null
+  const stats = useMemo(() => (sessionsQ.data ? athleteStats(sessionsQ.data, athlete, todayDate) : null), [sessionsQ.data, athlete, todayDate])
+  const rotation = stats ? rotationFor(todayDate, athlete, stats.firstSessionDate) : null
 
   const [swapId, setSwapId] = useState<string | null>(null)
   const workoutId = swapId ?? rotation?.workoutId ?? null
@@ -64,7 +64,7 @@ function TodayFor() {
 
   const doneToday = stats.sessionDates.includes(todayDate)
   const choices = workouts.filter((w) => !kidMode || w.kidSafe)
-  const week = rotationWeek(startOfWeek(todayDate), athlete.kind, stats.firstSessionDate)
+  const week = rotationWeek(startOfWeek(todayDate), athlete, stats.firstSessionDate)
 
   return (
     <div className="flex flex-col gap-4">
@@ -88,7 +88,7 @@ function TodayFor() {
       <Card className="flex flex-col gap-3">
         <div className="flex items-center justify-between gap-2">
           <span className="text-sm font-bold tracking-wide text-slate-500 uppercase dark:text-slate-400">
-            {swapId ? 'Your pick' : kidMode ? "Today's workout" : 'Suggested today'}
+            {swapId ? 'Your pick' : kidMode ? "Today's workout" : rotation.custom ? 'Your plan today' : 'Suggested today'}
           </span>
           {doneToday && <Pill tone="green">✓ Done today</Pill>}
         </div>

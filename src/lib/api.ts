@@ -89,12 +89,21 @@ export async function listAthletes(householdId: string): Promise<Athlete[]> {
   return run(() => supabase.from('athletes').select('*').eq('household_id', householdId).order('kind').order('created_at'))
 }
 
-export async function createAthlete(householdId: string, input: AthleteInput): Promise<Athlete> {
-  return run(() => supabase.from('athletes').insert({ ...input, household_id: householdId }).select().single())
+/** Leave `custom_rotation` out of the payload when it's unset, so a database without that column still works. */
+function athletePayload<T extends Partial<AthleteInput>>(input: T): T {
+  if (input.custom_rotation !== undefined && input.custom_rotation !== null) return input
+  const { custom_rotation: _omit, ...rest } = input
+  return rest as T
 }
 
-export async function updateAthlete(id: string, input: Partial<AthleteInput>): Promise<Athlete> {
-  return run(() => supabase.from('athletes').update(input).eq('id', id).select().single())
+export async function createAthlete(householdId: string, input: AthleteInput): Promise<Athlete> {
+  return run(() => supabase.from('athletes').insert({ ...athletePayload(input), household_id: householdId }).select().single())
+}
+
+/** Pass `clearCustomRotation` to switch an athlete back to the default rotation. */
+export async function updateAthlete(id: string, input: Partial<AthleteInput>, clearCustomRotation = false): Promise<Athlete> {
+  const payload = clearCustomRotation ? { ...input, custom_rotation: null } : athletePayload(input)
+  return run(() => supabase.from('athletes').update(payload).eq('id', id).select().single())
 }
 
 export async function deleteAthlete(id: string): Promise<void> {

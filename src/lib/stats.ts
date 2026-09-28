@@ -1,5 +1,5 @@
 import { today as todayDate, type ISODate } from './dates'
-import { rotationFor, type AthleteKind } from './rotation'
+import { rotationFor, type RotationProfile } from './rotation'
 import { currentStreak, longestStreak, STREAK_MILESTONES } from './streak'
 
 export interface AthleteStats {
@@ -10,10 +10,10 @@ export interface AthleteStats {
   isPlannedRest: (d: ISODate) => boolean
 }
 
-export function athleteStats(sessions: { performed_on: string }[], kind: AthleteKind, today: ISODate = todayDate()): AthleteStats {
+export function athleteStats(sessions: { performed_on: string }[], profile: RotationProfile, today: ISODate = todayDate()): AthleteStats {
   const sessionDates = sessions.map((s) => s.performed_on).sort()
   const firstSessionDate = sessionDates[0] ?? null
-  const isPlannedRest = (d: ISODate) => rotationFor(d, kind, firstSessionDate).workoutId === null
+  const isPlannedRest = (d: ISODate) => rotationFor(d, profile, firstSessionDate).workoutId === null
   return {
     firstSessionDate,
     sessionDates,

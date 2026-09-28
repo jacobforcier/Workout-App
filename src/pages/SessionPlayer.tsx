@@ -498,7 +498,7 @@ function BellPicker({ bells, value, onChange, allowNone }: { bells: number[]; va
 
 function SavedScreen({ athlete, kidMode, onDone }: { athlete: Athlete; kidMode: boolean; onDone: () => void }) {
   const sessionsQ = useAsync(() => listSessions(athlete.id), [athlete.id])
-  const stats = sessionsQ.data ? athleteStats(sessionsQ.data, athlete.kind) : null
+  const stats = sessionsQ.data ? athleteStats(sessionsQ.data, athlete) : null
   return (
     <main className="mx-auto flex max-w-xl flex-col gap-4 p-4 pb-10">
       <div className="text-center">
