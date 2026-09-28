@@ -1,0 +1,580 @@
+[
+  {
+    "id": "kb_deadlift",
+    "name": "Kettlebell deadlift",
+    "category": "hinge",
+    "equipment": ["kettlebell"],
+    "kidSafe": true,
+    "steps": [
+      "Stand with feet about hip-width apart, the bell on the floor between your mid-feet.",
+      "Push your hips back and let your knees bend a little until you can grip the handle with both hands.",
+      "Pull your shoulders down away from your ears and make your back flat and long.",
+      "Take a breath, brace your stomach, and stand up tall by driving your feet into the floor.",
+      "Finish standing straight with glutes squeezed, then push your hips back to lower the bell to the floor."
+    ],
+    "formCues": [
+      "Hips go back, not down.",
+      "Flat back, chest proud.",
+      "Push the floor away.",
+      "Stand tall and squeeze your glutes at the top."
+    ],
+    "commonMistakes": [
+      "Rounding the lower back to reach the bell.",
+      "Squatting the weight up instead of hinging at the hips.",
+      "Leaning back at the top instead of standing straight.",
+      "Letting the bell drift forward, away from the body."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  },
+  {
+    "id": "goblet_squat",
+    "name": "Goblet squat",
+    "category": "squat",
+    "equipment": ["kettlebell"],
+    "kidSafe": true,
+    "steps": [
+      "Hold the bell by the horns (sides of the handle) close to your chest, elbows pointing down.",
+      "Stand with feet a little wider than your hips, toes turned slightly out.",
+      "Sit down between your heels, keeping your chest up and the bell close.",
+      "Go as low as you can while your back stays flat and heels stay down.",
+      "Drive through your whole foot to stand back up."
+    ],
+    "formCues": [
+      "Elbows inside the knees at the bottom.",
+      "Heels heavy.",
+      "Chest tall, bell glued to your chest.",
+      "Knees follow the toes."
+    ],
+    "commonMistakes": [
+      "Heels lifting off the floor.",
+      "Knees caving inward.",
+      "Letting the bell pull the chest forward.",
+      "Cutting depth short on every rep."
+    ],
+    "videoUrl": null,
+    "substitutions": ["prying_goblet_squat"]
+  },
+  {
+    "id": "prying_goblet_squat",
+    "name": "Prying goblet squat",
+    "category": "mobility",
+    "equipment": ["kettlebell"],
+    "kidSafe": true,
+    "steps": [
+      "Hold the bell by the horns at your chest and squat down to the bottom of a goblet squat.",
+      "Rest your elbows against the inside of your knees.",
+      "Gently push your knees out with your elbows and shift your weight side to side.",
+      "Breathe slowly and relax into the bottom position for a few seconds.",
+      "Stand up tall. That is one rep."
+    ],
+    "formCues": [
+      "Relax at the bottom and breathe.",
+      "Use the elbows to open the hips.",
+      "Keep the heels down."
+    ],
+    "commonMistakes": [
+      "Rushing through it like a working squat.",
+      "Rounding the back to get lower."
+    ],
+    "videoUrl": null,
+    "substitutions": ["goblet_squat"]
+  },
+  {
+    "id": "two_hand_swing",
+    "name": "Two-hand swing",
+    "category": "hinge",
+    "equipment": ["kettlebell"],
+    "kidSafe": true,
+    "steps": [
+      "Set the bell about a foot in front of you. Hinge back and grip the handle with both hands, tilting the bell toward you.",
+      "Hike the bell back between your legs like a football snap, high up near your zipper.",
+      "Snap your hips forward and stand up tall so the bell floats up to chest height. Your arms just guide it.",
+      "Let the bell fall; wait until your forearms touch your thighs, then hinge and let it swing back through.",
+      "To finish, hike it back one last time and park it on the floor in front of you."
+    ],
+    "formCues": [
+      "It's a hip snap, not an arm lift.",
+      "Hike it high between the legs.",
+      "Stand tall like a plank at the top.",
+      "Exhale sharply at the top.",
+      "Wait for the bell before you hinge."
+    ],
+    "commonMistakes": [
+      "Squatting the swing instead of hinging.",
+      "Lifting the bell with the arms or shoulders.",
+      "Leaning back at the top.",
+      "Letting the bell swing low toward the knees on the backswing.",
+      "Hinging too early so the bell drags you forward."
+    ],
+    "videoUrl": null,
+    "substitutions": ["kb_deadlift"]
+  },
+  {
+    "id": "one_arm_swing",
+    "name": "One-arm swing",
+    "category": "hinge",
+    "equipment": ["kettlebell"],
+    "kidSafe": false,
+    "steps": [
+      "Set up like a two-hand swing, but grip the handle with one hand. The free arm can hang at your side.",
+      "Hike the bell back high between your legs.",
+      "Snap the hips forward and stand tall so the bell floats to chest height.",
+      "Keep the working shoulder packed down, and don't let the bell twist your torso.",
+      "Hike it back and park it before switching hands."
+    ],
+    "formCues": [
+      "Shoulder down and back.",
+      "Square hips and shoulders, don't twist.",
+      "Hip snap does the work."
+    ],
+    "commonMistakes": [
+      "Rotating the torso to follow the bell.",
+      "Shrugging the working shoulder up.",
+      "Switching hands without control."
+    ],
+    "videoUrl": null,
+    "substitutions": ["two_hand_swing"]
+  },
+  {
+    "id": "single_arm_press",
+    "name": "Single-arm press",
+    "category": "press",
+    "equipment": ["kettlebell"],
+    "kidSafe": true,
+    "steps": [
+      "Clean or lift the bell to the rack position: handle in your palm, bell resting on the outside of your forearm, elbow tucked to your ribs.",
+      "Squeeze your glutes and brace your stomach so you're solid from feet to shoulders.",
+      "Press the bell straight up until your arm is locked out next to your ear, with your wrist straight.",
+      "Lower it under control back to the rack.",
+      "Finish all reps on one side, then switch."
+    ],
+    "formCues": [
+      "Straight wrist, knuckles to the ceiling.",
+      "Squeeze glutes, ribs down.",
+      "Bicep by the ear at the top."
+    ],
+    "commonMistakes": [
+      "Leaning back to push the bell up.",
+      "Bent wrist letting the bell flop back.",
+      "Elbow flaring out wide in the rack."
+    ],
+    "videoUrl": null,
+    "substitutions": ["push_up"]
+  },
+  {
+    "id": "single_arm_row",
+    "name": "Single-arm row",
+    "category": "pull",
+    "equipment": ["kettlebell"],
+    "kidSafe": true,
+    "steps": [
+      "Stagger your stance and hinge forward, with your free hand on your thigh or a bench for support.",
+      "Let the bell hang from the working arm under your shoulder.",
+      "Pull the bell toward your hip, driving the elbow back.",
+      "Pause, then lower it under control until your arm is straight.",
+      "Finish all reps on one side, then switch."
+    ],
+    "formCues": [
+      "Elbow to the back pocket.",
+      "Flat back, still hips.",
+      "Shoulder away from the ear."
+    ],
+    "commonMistakes": [
+      "Twisting the torso to swing the bell up.",
+      "Rounding the back.",
+      "Shrugging instead of pulling with the back."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  },
+  {
+    "id": "windmill",
+    "name": "Kettlebell windmill",
+    "category": "mobility",
+    "equipment": ["kettlebell"],
+    "kidSafe": false,
+    "steps": [
+      "Press or hold a light bell overhead with one arm locked out. Beginners can do it with no bell.",
+      "Turn both feet about 45° away from the bell side.",
+      "Keep your eyes on the bell and push your hip out toward the bell side.",
+      "Hinge sideways and slide your free hand down the inside of your front leg toward the floor.",
+      "Go only as far as your back stays long, then stand back up by driving the hip back under you."
+    ],
+    "formCues": [
+      "Eyes on the bell the whole time.",
+      "Push the hip out, then hinge.",
+      "Overhead arm stays locked and vertical."
+    ],
+    "commonMistakes": [
+      "Bending the overhead elbow.",
+      "Rounding the back to reach the floor.",
+      "Looking away from the bell."
+    ],
+    "videoUrl": null,
+    "substitutions": ["halo"]
+  },
+  {
+    "id": "chin_up",
+    "name": "Chin-up",
+    "category": "pull",
+    "equipment": ["pullup_bar"],
+    "kidSafe": false,
+    "steps": [
+      "Grip the bar with palms facing you, hands shoulder-width apart.",
+      "Hang with arms straight, then pull your shoulders down away from your ears.",
+      "Pull yourself up until your chin clears the bar.",
+      "Lower yourself under control until your arms are straight again."
+    ],
+    "formCues": [
+      "Shoulders down before you pull.",
+      "Chest to the bar.",
+      "Control the way down."
+    ],
+    "commonMistakes": [
+      "Kicking or swinging for momentum.",
+      "Half reps without straightening the arms.",
+      "Reaching the chin up instead of pulling the body up."
+    ],
+    "videoUrl": null,
+    "substitutions": ["dead_hang", "single_arm_row"]
+  },
+  {
+    "id": "dead_hang",
+    "name": "Dead hang",
+    "category": "grip",
+    "equipment": ["pullup_bar"],
+    "kidSafe": true,
+    "steps": [
+      "Grip a pull-up bar with both hands, about shoulder-width apart.",
+      "Lift your feet and hang with straight arms.",
+      "Keep your shoulders gently engaged, not shrugged all the way up to your ears.",
+      "Breathe and hold as long as you can with good grip, then step down."
+    ],
+    "formCues": [
+      "Long arms, relaxed breathing.",
+      "Squeeze the bar."
+    ],
+    "commonMistakes": [
+      "Dropping off without control.",
+      "Holding your breath."
+    ],
+    "videoUrl": null,
+    "substitutions": ["single_arm_row"]
+  },
+  {
+    "id": "dip",
+    "name": "Dip",
+    "category": "push",
+    "equipment": ["dip_bars"],
+    "kidSafe": false,
+    "steps": [
+      "Grip the parallel bars and press up so your arms are straight, shoulders down.",
+      "Lean slightly forward and lower yourself by bending your elbows.",
+      "Go down until your upper arms are about parallel to the floor, or as deep as your shoulders are comfortable.",
+      "Press back up to straight arms."
+    ],
+    "formCues": [
+      "Shoulders away from the ears.",
+      "Elbows track back, not out.",
+      "Controlled depth."
+    ],
+    "commonMistakes": [
+      "Sinking too deep and straining the shoulders.",
+      "Shrugging at the bottom.",
+      "Bouncing out of the bottom."
+    ],
+    "videoUrl": null,
+    "substitutions": ["bench_dip", "push_up"]
+  },
+  {
+    "id": "bench_dip",
+    "name": "Bench dip",
+    "category": "push",
+    "equipment": ["bench"],
+    "kidSafe": false,
+    "steps": [
+      "Sit on the edge of a sturdy bench or chair and put your hands next to your hips, fingers forward.",
+      "Slide your hips off the edge, feet on the floor with knees bent.",
+      "Bend your elbows to lower your hips toward the floor.",
+      "Stop when your upper arms are about parallel to the floor, then press back up."
+    ],
+    "formCues": [
+      "Hips close to the bench.",
+      "Elbows point straight back.",
+      "Shoulders down."
+    ],
+    "commonMistakes": [
+      "Going too deep and rolling the shoulders forward.",
+      "Letting the elbows flare out."
+    ],
+    "videoUrl": null,
+    "substitutions": ["push_up"]
+  },
+  {
+    "id": "push_up",
+    "name": "Push-up",
+    "category": "push",
+    "equipment": [],
+    "kidSafe": true,
+    "steps": [
+      "Place your hands a little wider than your shoulders and step back into a straight plank.",
+      "Squeeze your glutes and brace your stomach.",
+      "Lower your chest toward the floor with elbows at about 45° from your body.",
+      "Press the floor away until your arms are straight.",
+      "Make it easier with hands on a bench or knees down."
+    ],
+    "formCues": [
+      "Body moves as one plank.",
+      "Elbows back at 45°.",
+      "Chest leads, not the hips."
+    ],
+    "commonMistakes": [
+      "Sagging hips.",
+      "Elbows flared straight out.",
+      "Partial range of motion."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  },
+  {
+    "id": "kb_overhead_squat",
+    "name": "Kettlebell overhead squat",
+    "category": "squat",
+    "equipment": ["kettlebell"],
+    "kidSafe": false,
+    "steps": [
+      "Press one bell overhead and lock the arm out, bicep by your ear.",
+      "Keep your eyes on the bell or straight ahead and your ribs down.",
+      "Squat down while the overhead arm stays locked and vertical.",
+      "Go as low as your arm stays straight and your back stays flat.",
+      "Stand back up, then lower the bell to the rack to switch sides between sets."
+    ],
+    "formCues": [
+      "Arm locked and stacked over the shoulder.",
+      "Squat straight down between the heels.",
+      "Stay tall through the chest."
+    ],
+    "commonMistakes": [
+      "Letting the overhead arm drift forward.",
+      "Bending the elbow.",
+      "Squatting deeper than the shoulder mobility allows."
+    ],
+    "videoUrl": null,
+    "substitutions": ["goblet_squat"]
+  },
+  {
+    "id": "turkish_get_up",
+    "name": "Turkish get-up",
+    "category": "full body",
+    "equipment": ["kettlebell"],
+    "kidSafe": false,
+    "steps": [
+      "Lie on your back. Bring the bell to your chest with both hands, then press it up with one arm. Bend the knee on the same side, foot flat.",
+      "Roll to the opposite elbow, then push up to your hand, keeping eyes on the bell.",
+      "Lift your hips high into a bridge.",
+      "Sweep the straight leg under you to a kneeling position.",
+      "Straighten your torso to tall kneeling, turn the back foot, and stand up.",
+      "Reverse every step slowly to lie back down. That's one rep.",
+      "Beginner option: do it with no bell, or balance a shoe on your fist."
+    ],
+    "formCues": [
+      "Eyes on the bell until you're kneeling.",
+      "Arm locked and vertical the whole time.",
+      "Move slowly, one position at a time."
+    ],
+    "commonMistakes": [
+      "Rushing through the positions.",
+      "Bending the arm holding the bell.",
+      "Hips too low in the bridge, so the leg can't sweep through."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  },
+  {
+    "id": "halo",
+    "name": "Halo",
+    "category": "mobility",
+    "equipment": ["kettlebell"],
+    "kidSafe": true,
+    "steps": [
+      "Hold a light bell upside down by the horns in front of your chest.",
+      "Circle it around your head, close to your neck, keeping your stomach tight.",
+      "Return to the front. That's one rep.",
+      "Do all reps in one direction, then switch directions."
+    ],
+    "formCues": [
+      "Stay tall and keep your ribs down.",
+      "Bell close to the head.",
+      "Slow and smooth."
+    ],
+    "commonMistakes": [
+      "Arching the lower back.",
+      "Making huge circles far from the head."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  },
+  {
+    "id": "hip_bridge",
+    "name": "Hip bridge",
+    "category": "mobility",
+    "equipment": [],
+    "kidSafe": true,
+    "steps": [
+      "Lie on your back, knees bent, feet flat and hip-width apart.",
+      "Press through your heels and squeeze your glutes to lift your hips.",
+      "Hold for a second at the top with a straight line from knees to shoulders.",
+      "Lower slowly."
+    ],
+    "formCues": [
+      "Drive through the heels.",
+      "Squeeze your glutes, don't arch your back."
+    ],
+    "commonMistakes": [
+      "Arching the lower back instead of using the glutes.",
+      "Feet too far from the hips."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  },
+  {
+    "id": "suitcase_carry",
+    "name": "Suitcase carry",
+    "category": "carry",
+    "equipment": ["kettlebell"],
+    "kidSafe": true,
+    "steps": [
+      "Deadlift the bell up with one hand, holding it at your side like a suitcase.",
+      "Stand perfectly tall, without leaning toward or away from the bell.",
+      "Walk slowly with small, controlled steps.",
+      "Set it down with a good hinge, then switch hands."
+    ],
+    "formCues": [
+      "Stand tall and don't lean.",
+      "Shoulders level.",
+      "Crush the handle."
+    ],
+    "commonMistakes": [
+      "Leaning to one side.",
+      "Letting the bell bang against the leg.",
+      "Rushing the steps."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  },
+  {
+    "id": "plank",
+    "name": "Plank",
+    "category": "core",
+    "equipment": [],
+    "kidSafe": true,
+    "steps": [
+      "Place your forearms on the floor, elbows under your shoulders.",
+      "Step your feet back so your body is a straight line from head to heels.",
+      "Squeeze your glutes, brace your stomach, and breathe.",
+      "Hold for the time, then lower your knees."
+    ],
+    "formCues": [
+      "Straight line from head to heels.",
+      "Squeeze your glutes.",
+      "Keep breathing."
+    ],
+    "commonMistakes": [
+      "Hips sagging toward the floor.",
+      "Hips piked up high.",
+      "Holding your breath."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  },
+  {
+    "id": "hip_circles",
+    "name": "Hip circles",
+    "category": "mobility",
+    "equipment": [],
+    "kidSafe": true,
+    "steps": [
+      "Stand with hands on your hips, feet shoulder-width apart.",
+      "Make big slow circles with your hips.",
+      "Switch directions halfway through."
+    ],
+    "formCues": [
+      "Big and slow.",
+      "Keep your head still."
+    ],
+    "commonMistakes": [
+      "Moving too fast.",
+      "Tiny circles."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  },
+  {
+    "id": "cat_cow",
+    "name": "Cat-cow",
+    "category": "mobility",
+    "equipment": [],
+    "kidSafe": true,
+    "steps": [
+      "Start on hands and knees, hands under shoulders and knees under hips.",
+      "Breathe in and let your belly drop while you look up (cow).",
+      "Breathe out and round your back toward the ceiling while you tuck your chin (cat).",
+      "Move slowly between the two positions."
+    ],
+    "formCues": [
+      "Move with your breath.",
+      "Move one segment of the spine at a time."
+    ],
+    "commonMistakes": [
+      "Rushing.",
+      "Only moving the neck."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  },
+  {
+    "id": "worlds_greatest_stretch",
+    "name": "World's greatest stretch",
+    "category": "mobility",
+    "equipment": [],
+    "kidSafe": true,
+    "steps": [
+      "Step into a long lunge with your right foot forward and put your left hand on the floor.",
+      "Drop your right elbow toward the inside of your right foot.",
+      "Rotate and reach your right arm up to the ceiling, following it with your eyes.",
+      "Return your hand to the floor, step back, and switch sides."
+    ],
+    "formCues": [
+      "Back knee off the floor if you can.",
+      "Rotate from the upper back.",
+      "Breathe into each position."
+    ],
+    "commonMistakes": [
+      "Short lunge stance.",
+      "Forcing the elbow to the floor."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  },
+  {
+    "id": "walk",
+    "name": "Walk",
+    "category": "conditioning",
+    "equipment": [],
+    "kidSafe": true,
+    "steps": [
+      "Walk at an easy, conversational pace.",
+      "Outside is best. Leave the phone in your pocket if you can."
+    ],
+    "formCues": [
+      "Easy pace, nose breathing if you can.",
+      "Tall posture, relaxed arms."
+    ],
+    "commonMistakes": [
+      "Turning a recovery walk into a hard workout."
+    ],
+    "videoUrl": null,
+    "substitutions": []
+  }
+]

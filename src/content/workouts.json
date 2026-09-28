@@ -1,0 +1,225 @@
+[
+  {
+    "id": "foundation",
+    "name": "Foundation circuit",
+    "summary": "Learn the hip hinge and the basic kettlebell moves before anything fast. Start here for weeks 1–2.",
+    "level": "beginner",
+    "estimatedMinutes": 25,
+    "recommendedFrequency": "3× per week (Mon/Wed/Fri) during weeks 1–2",
+    "kidSafe": true,
+    "notes": [
+      "Purpose: groove the hip hinge with slow deadlifts before the swing.",
+      "Pick a bell you can move with perfect form. Stop a set early if form breaks."
+    ],
+    "warmup": [
+      {
+        "title": "Warm-up",
+        "format": "circuit",
+        "rounds": 1,
+        "items": [
+          { "exerciseId": "hip_circles", "seconds": 30, "perSide": false },
+          { "exerciseId": "cat_cow", "reps": 8, "perSide": false },
+          { "exerciseId": "hip_bridge", "reps": 8, "perSide": false }
+        ]
+      }
+    ],
+    "main": [
+      {
+        "title": "Circuit",
+        "format": "circuit",
+        "rounds": 3,
+        "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Rest 60–90 s between rounds." },
+        "items": [
+          { "exerciseId": "kb_deadlift", "reps": 10, "perSide": false },
+          { "exerciseId": "goblet_squat", "reps": 8, "perSide": false },
+          { "exerciseId": "two_hand_swing", "reps": 10, "perSide": false },
+          { "exerciseId": "single_arm_press", "reps": 5, "perSide": true },
+          { "exerciseId": "single_arm_row", "reps": 8, "perSide": true }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "joe_rogan",
+    "name": "Joe Rogan (Onnit version)",
+    "summary": "Chin-ups, dips, and kettlebell overhead squats for strength. Heavy-ish sets of 5 with clean form.",
+    "level": "intermediate",
+    "estimatedMinutes": 35,
+    "recommendedFrequency": "2–3× per week with a rest day between",
+    "kidSafe": false,
+    "notes": [
+      "Use a load you could do 7–8 times, so every set of 5 stays crisp.",
+      "Do the main lifts in any order or as a circuit. Rest as needed so form stays clean.",
+      "No pull-up bar? Chin-ups → dead hang or single-arm row. No dip bars? Dips → bench dips or push-ups."
+    ],
+    "warmup": [
+      {
+        "title": "Warm-up",
+        "format": "sets",
+        "items": [
+          { "exerciseId": "two_hand_swing", "sets": 2, "reps": 20, "perSide": false, "rest": { "seconds": 45, "guidance": "Short break, then go again." } },
+          { "exerciseId": "windmill", "sets": 2, "reps": 5, "perSide": true, "rest": { "seconds": 30, "guidance": "Easy pace; this is a warm-up." } }
+        ]
+      }
+    ],
+    "main": [
+      {
+        "title": "Strength circuit",
+        "format": "circuit",
+        "rounds": 3,
+        "maxRounds": 5,
+        "restBetweenRounds": { "seconds": 120, "minSeconds": 60, "guidance": "Rest as needed so form stays clean (about 1–2 min)." },
+        "items": [
+          { "exerciseId": "chin_up", "reps": 5, "perSide": false },
+          { "exerciseId": "dip", "reps": 5, "perSide": false },
+          { "exerciseId": "kb_overhead_squat", "reps": 5, "perSide": true }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "simple_sinister",
+    "name": "Simple & Sinister",
+    "summary": "100 one-arm swings and 10 Turkish get-ups. Short, simple, and very effective.",
+    "level": "intermediate",
+    "estimatedMinutes": 35,
+    "recommendedFrequency": "Up to daily when easy; 2–3× per week to start",
+    "kidSafe": false,
+    "notes": [
+      "Beginner option: use two-hand swings instead of one-arm swings.",
+      "Beginner option: do get-ups with no bell, or balance a shoe on your fist."
+    ],
+    "warmup": [
+      {
+        "title": "Warm-up",
+        "format": "circuit",
+        "rounds": 3,
+        "items": [
+          { "exerciseId": "prying_goblet_squat", "reps": 5, "perSide": false },
+          { "exerciseId": "halo", "reps": 5, "perSide": true, "sideNames": ["Clockwise", "Counter-clockwise"] },
+          { "exerciseId": "hip_bridge", "reps": 5, "perSide": false }
+        ]
+      }
+    ],
+    "main": [
+      {
+        "title": "Swings",
+        "format": "sets",
+        "items": [
+          { "exerciseId": "one_arm_swing", "sets": 10, "reps": 10, "perSide": false, "alternateSides": true, "rest": { "seconds": 60, "minSeconds": 30, "guidance": "Rest until your breathing settles, then switch hands." } }
+        ]
+      },
+      {
+        "title": "Get-ups",
+        "format": "sets",
+        "items": [
+          { "exerciseId": "turkish_get_up", "sets": 10, "reps": 1, "perSide": false, "alternateSides": true, "rest": { "seconds": 45, "minSeconds": 20, "guidance": "Short pause, then switch sides." } }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "swing_emom",
+    "name": "Swing EMOM",
+    "summary": "10 two-hand swings at the top of every minute for 10 minutes. Rest for whatever is left of each minute.",
+    "level": "beginner",
+    "estimatedMinutes": 15,
+    "recommendedFrequency": "1–2× per week",
+    "kidSafe": false,
+    "notes": [
+      "EMOM = every minute on the minute. Start swinging at the beep; rest when done until the next beep."
+    ],
+    "warmup": [
+      {
+        "title": "Warm-up",
+        "format": "circuit",
+        "rounds": 2,
+        "items": [
+          { "exerciseId": "prying_goblet_squat", "reps": 5, "perSide": false },
+          { "exerciseId": "halo", "reps": 5, "perSide": true, "sideNames": ["Clockwise", "Counter-clockwise"] }
+        ]
+      }
+    ],
+    "main": [
+      {
+        "title": "EMOM",
+        "format": "emom",
+        "minutes": 10,
+        "items": [
+          { "exerciseId": "two_hand_swing", "reps": 10, "perSide": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "family_circuit",
+    "name": "Family circuit",
+    "summary": "A friendly circuit everyone can do together. Light bells, good form, lots of praise.",
+    "level": "beginner",
+    "estimatedMinutes": 20,
+    "recommendedFrequency": "1–2× per week",
+    "kidSafe": true,
+    "notes": [
+      "Kids use a light bell, and an adult should always supervise."
+    ],
+    "warmup": [
+      {
+        "title": "Warm-up",
+        "format": "circuit",
+        "rounds": 1,
+        "items": [
+          { "exerciseId": "hip_circles", "seconds": 30, "perSide": false },
+          { "exerciseId": "hip_bridge", "reps": 8, "perSide": false }
+        ]
+      }
+    ],
+    "main": [
+      {
+        "title": "Circuit",
+        "format": "circuit",
+        "rounds": 2,
+        "maxRounds": 3,
+        "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Rest about a minute and a half between rounds." },
+        "items": [
+          { "exerciseId": "goblet_squat", "reps": 8, "perSide": false },
+          { "exerciseId": "kb_deadlift", "reps": 8, "perSide": false },
+          { "exerciseId": "halo", "reps": 5, "perSide": true, "sideNames": ["Clockwise", "Counter-clockwise"] },
+          { "exerciseId": "suitcase_carry", "reps": 20, "unit": "steps", "perSide": true },
+          { "exerciseId": "plank", "seconds": 20, "perSide": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "recovery",
+    "name": "Recovery day",
+    "summary": "Gentle mobility, light halos, and a 20-minute walk. Counts toward your streak.",
+    "level": "beginner",
+    "estimatedMinutes": 35,
+    "recommendedFrequency": "On days between harder sessions",
+    "kidSafe": true,
+    "notes": [
+      "Keep everything easy. You should feel better at the end than at the start."
+    ],
+    "warmup": [],
+    "main": [
+      {
+        "title": "Mobility",
+        "format": "timed",
+        "items": [
+          { "exerciseId": "hip_circles", "seconds": 60, "perSide": false },
+          { "exerciseId": "cat_cow", "seconds": 60, "perSide": false },
+          { "exerciseId": "worlds_greatest_stretch", "seconds": 30, "perSide": true },
+          { "exerciseId": "halo", "reps": 5, "perSide": true, "sideNames": ["Clockwise", "Counter-clockwise"] }
+        ]
+      },
+      {
+        "title": "Walk",
+        "format": "timed",
+        "items": [
+          { "exerciseId": "walk", "seconds": 1200, "perSide": false }
+        ]
+      }
+    ]
+  }
+]
