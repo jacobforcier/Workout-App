@@ -69,8 +69,8 @@ export default function FinishPanel({
   const totalReps = logs.reduce((n, l) => n + (l.reps ?? 0), 0)
 
   const preview = useMemo(() => {
-    if (rpe === null || !previous || !completed) return []
-    const current: SessionLike = { id: 'current', performed_on: today(), rpe, bell_lb: sessionBell, completed: true, set_logs: logs }
+    if (rpe === null || !previous) return []
+    const current: SessionLike = { id: 'current', performed_on: today(), rpe, bell_lb: sessionBell, completed, set_logs: logs }
     return suggestProgressions({
       workout,
       sessions: [previous, current],
@@ -91,7 +91,7 @@ export default function FinishPanel({
         <p className="mt-1 text-slate-600 dark:text-slate-300">
           {workout.name} · {formatDuration(durationSec)} · {logs.length} sets · {totalReps} reps
         </p>
-        {!completed && <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Saved as incomplete. It won't count toward your streak.</p>}
+        {!completed && <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Saved as a partial session. It still counts toward your week.</p>}
       </div>
 
       <Card>

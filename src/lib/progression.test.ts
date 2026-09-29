@@ -126,7 +126,7 @@ describe('suggestProgressions', () => {
     expect(suggestProgressions({ workout: joeRogan, sessions, ...base })).toHaveLength(1)
   })
 
-  it('ignores incomplete sessions', () => {
+  it('ignores sessions with nothing logged', () => {
     const sessions = [
       session('a', '2026-09-01', 6, joeRoganLogs(3)),
       { ...session('b', '2026-09-02', 6, []), completed: false },
@@ -229,5 +229,13 @@ describe('suggestProgressions', () => {
   it('does not treat skipped sets as missed reps', () => {
     const sessions = [session('a', '2026-09-01', 8, joeRoganLogs(2)), session('b', '2026-09-03', 8, joeRoganLogs(2))]
     expect(suggestProgressions({ workout: joeRogan, sessions, ...base })).toEqual([])
+  })
+
+  it('uses a partial (finished early) session for step-back, not for progress', () => {
+    const partial = { ...session('b', '2026-09-03', 9, joeRoganLogs(2)), completed: false }
+    const hard = [session('a', '2026-09-01', 9, joeRoganLogs(3)), partial]
+    expect(suggestProgressions({ workout: joeRogan, sessions: hard, ...base })[0]).toMatchObject({ kind: 'step_back', unitKey: 'workout' })
+    const easy = [session('a', '2026-09-01', 6, joeRoganLogs(3)), { ...partial, rpe: 6 }]
+    expect(suggestProgressions({ workout: joeRogan, sessions: easy, ...base })).toEqual([])
   })
 })

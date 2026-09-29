@@ -180,7 +180,8 @@ export interface ProgressionInput {
 
 export function suggestProgressions({ workout, sessions, currentBellLb, availableBellsLb }: ProgressionInput): Suggestion[] {
   const recent = sessions
-    .filter((s) => s.completed)
+    // Partial sessions count: they can't pass hitAllTargets (too few sets), but they do inform step-backs.
+    .filter((s) => s.set_logs.length > 0)
     .sort((a, b) => (a.performed_on < b.performed_on ? 1 : a.performed_on > b.performed_on ? -1 : 0))
     .slice(0, 2)
   if (recent.length < 2) return []
