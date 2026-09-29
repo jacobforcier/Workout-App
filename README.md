@@ -143,9 +143,11 @@ The weekly plan sets what to do this week and in what order. Today suggests the 
 - **Weekly goal:** Today shows harder sessions done out of those planned this week, plus weeks in a row that hit the goal. The week in progress never breaks that streak.
 - **Never miss twice:** after a missed harder day, Today suggests a Recovery day so the habit keeps going.
 
+**Finishing early still counts.** Any saved session counts toward the week, streaks, and badges, including one ended with **Finish** before every set was done. Partial sessions can't trigger an increase, but they do feed the step-back check.
+
 ### Daily streaks and badges (`src/lib/streak.ts`)
 
-Kids' badges still use a daily streak: consecutive days with a completed session. Recovery counts, and a planned rest day doesn't break the streak. Badges unlock at 3, 7, 14, and 30 days. Progress shows the best daily streak.
+Kids' badges still use a daily streak: consecutive days with a saved session. Recovery counts, and a planned rest day doesn't break the streak. Badges unlock at 3, 7, 14, and 30 days. Progress shows the best daily streak.
 
 ### Session player (`src/lib/plan.ts`)
 

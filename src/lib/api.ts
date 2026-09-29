@@ -112,23 +112,26 @@ export async function deleteAthlete(id: string): Promise<void> {
 
 // --- Sessions -------------------------------------------------------------
 
-/** Completed sessions for an athlete, oldest first (no set logs). */
+/**
+ * Every saved session for an athlete, oldest first (no set logs). Partial
+ * sessions (finished early) count too: they were real training.
+ */
 export async function listSessions(athleteId: string): Promise<SessionRow[]> {
   return run(() =>
-    supabase.from('sessions').select('*').eq('athlete_id', athleteId).eq('completed', true).order('performed_on').order('started_at'),
+    supabase.from('sessions').select('*').eq('athlete_id', athleteId).order('performed_on').order('started_at'),
   )
 }
 
-/** Completed sessions with set logs, oldest first. */
+/** Every saved session with its set logs, oldest first. */
 export async function listSessionsWithLogs(athleteId: string, sinceDate?: string): Promise<SessionWithLogs[]> {
   return run(() => {
-    let q = supabase.from('sessions').select('*, set_logs(*)').eq('athlete_id', athleteId).eq('completed', true)
+    let q = supabase.from('sessions').select('*, set_logs(*)').eq('athlete_id', athleteId)
     if (sinceDate) q = q.gte('performed_on', sinceDate)
     return q.order('performed_on').order('started_at')
   })
 }
 
-/** The most recent completed sessions of one workout, with set logs, newest first. */
+/** The most recent sessions of one workout (partial ones included), with set logs, newest first. */
 export async function recentWorkoutSessions(athleteId: string, workoutId: string, limit = 2): Promise<SessionWithLogs[]> {
   return run(() =>
     supabase
@@ -136,7 +139,6 @@ export async function recentWorkoutSessions(athleteId: string, workoutId: string
       .select('*, set_logs(*)')
       .eq('athlete_id', athleteId)
       .eq('workout_id', workoutId)
-      .eq('completed', true)
       .order('performed_on', { ascending: false })
       .order('started_at', { ascending: false })
       .limit(limit),
