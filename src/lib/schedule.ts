@@ -19,6 +19,8 @@ export interface PlanEntry {
   workoutId: string
   done: boolean
   doneOn: ISODate | null
+  /** The workout actually done for this slot (may differ from the plan). */
+  doneWorkoutId: string | null
 }
 
 export interface WeekStatus {
@@ -48,29 +50,32 @@ function sessionsInWeek(sessions: DoneSession[], weekStart: ISODate): DoneSessio
 export function weekStatus(date: ISODate, profile: RotationProfile, sessions: DoneSession[], firstSessionDate: ISODate | null): WeekStatus {
   const weekStart = startOfWeek(date)
   const { plan, phase, week } = weekPlanFor(date, profile, firstSessionDate)
-  const entries: PlanEntry[] = plan.flatMap((workoutId, day) => (workoutId ? [{ day, workoutId, done: false, doneOn: null }] : []))
+  const entries: PlanEntry[] = plan.flatMap((workoutId, day) => (workoutId ? [{ day, workoutId, done: false, doneOn: null, doneWorkoutId: null }] : []))
   const thisWeek = sessionsInWeek(sessions, weekStart)
 
   const fill = (slot: PlanEntry | undefined, s: DoneSession) => {
     if (!slot) return false
     slot.done = true
     slot.doneOn = s.performed_on
+    slot.doneWorkoutId = s.workout_id
     return true
   }
-  // Prefer the slot planned for the session's own day, then the earliest open one.
-  const pick = (candidates: PlanEntry[], day: number) => candidates.find((e) => e.day === day) ?? candidates[0]
 
-  // Pass 1: exact matches, so an earlier swap can't take a slot a later session matches exactly.
-  const swaps: DoneSession[] = []
+  // Pass 1: a session ticks off its own day, whatever workout it was: the day you trained is the day
+  // that's done. The one exception: a recovery session doesn't tick off a harder day.
+  const unplaced: DoneSession[] = []
   for (const s of thisWeek) {
     const day = mondayIndex(s.performed_on)
-    if (!fill(pick(entries.filter((e) => !e.done && e.workoutId === s.workout_id), day), s)) swaps.push(s)
+    const slot = entries.find((e) => !e.done && e.day === day && (!isRecovery(s.workout_id) || isRecovery(e.workoutId)))
+    if (!fill(slot, s)) unplaced.push(s)
   }
-  // Pass 2: a swap fills an open slot of the same kind (hard vs recovery) on its own day or an
-  // earlier missed one. It never ticks off a future day; it still counts toward the week's total.
-  for (const s of swaps) {
+  // Pass 2: sessions on rest days (or a second session in a day) catch up an earlier missed day:
+  // the same workout if it's open, otherwise the earliest open slot of the same kind (hard vs recovery).
+  // They never tick off a future day; they still count toward the week's total.
+  for (const s of unplaced) {
     const day = mondayIndex(s.performed_on)
-    fill(pick(entries.filter((e) => !e.done && e.day <= day && isRecovery(e.workoutId) === isRecovery(s.workout_id)), day), s)
+    const earlier = entries.filter((e) => !e.done && e.day < day)
+    fill(earlier.find((e) => e.workoutId === s.workout_id) ?? earlier.find((e) => isRecovery(e.workoutId) === isRecovery(s.workout_id)), s)
   }
 
   return {
@@ -98,7 +103,13 @@ export interface TodaySuggestion {
 /** Next open plan entries, in order. Recovery days already in the past are dropped; hard sessions carry over. */
 function openEntries(status: WeekStatus, today: ISODate): PlanEntry[] {
   const todayIdx = mondayIndex(today)
-  return status.entries.filter((e) => !e.done && !(isRecovery(e.workoutId) && e.day < todayIdx))
+  return status.entries.filter((e) => {
+    if (e.done) return false
+    if (e.day >= todayIdx) return true
+    // Missed days: drop recovery, and drop a workout already done on another day this week.
+    if (isRecovery(e.workoutId)) return false
+    return !status.entries.some((o) => o.doneWorkoutId === e.workoutId)
+  })
 }
 
 export function suggestToday(today: ISODate, status: WeekStatus, sessions: DoneSession[]): TodaySuggestion {

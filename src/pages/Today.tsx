@@ -232,7 +232,12 @@ function TodayFor() {
             return (
               <li key={day} className={`flex items-center justify-between gap-2 py-2 ${day === todayIdx ? 'font-bold' : ''}`}>
                 <span className="w-12 text-slate-500 dark:text-slate-400">{PLAN_DAYS[day].slice(0, 3)}</span>
-                <span className={`flex-1 ${id ? '' : 'text-slate-500'}`}>{id ? workoutName(id) : 'Rest'}</span>
+                <span className={`flex-1 ${id ? '' : 'text-slate-500'}`}>
+                  {id ? workoutName(id) : 'Rest'}
+                  {entry?.doneWorkoutId && entry.doneWorkoutId !== id && (
+                    <span className="block text-sm font-normal text-slate-500 dark:text-slate-400">Did {workoutName(entry.doneWorkoutId)}</span>
+                  )}
+                </span>
                 {entry?.done && <span aria-label="done">✅</span>}
               </li>
             )

@@ -18,7 +18,9 @@ describe('weekStatus', () => {
     expect(st.done).toBe(1)
     expect(st.recoveryDone).toBe(1)
     expect(st.entries[0].done).toBe(true)
-    expect(st.entries[2].done).toBe(true)
+    // Tuesday's recovery walk doesn't tick Tuesday's harder slot or Wednesday's future recovery day.
+    expect(st.entries[1].done).toBe(false)
+    expect(st.entries[2].done).toBe(false)
   })
 
   it('lets a swap fill the next open harder slot', () => {
@@ -26,17 +28,36 @@ describe('weekStatus', () => {
     expect(st.entries[0]).toMatchObject({ workoutId: 'joe_rogan', done: true })
   })
 
-  it('never lets a swap tick off a future day', () => {
+  it('never lets a session tick off a future day', () => {
     // KB-only full plan: Mon Rogan · Tue Rec · Wed Family · Thu Rogan · Fri Rec · Sat S&S.
-    // Foundation on Tuesday (a recovery day) is an extra, not Wednesday's or Thursday's session.
+    // Foundation on Tuesday (a recovery day) ticks Tuesday, not Wednesday or Thursday.
     const st = weekStatus('2026-09-30', KB_ONLY, [s('2026-09-28', 'joe_rogan_podcast'), s('2026-09-29', 'foundation')], FIRST)
-    expect(st.entries.filter((e) => e.done).map((e) => e.day)).toEqual([0])
+    expect(st.entries.filter((e) => e.done).map((e) => e.day)).toEqual([0, 1])
     expect(st.done).toBe(2)
   })
 
-  it('lets a swap catch up an earlier missed day', () => {
+  it("a recovery session doesn't tick off a harder day", () => {
+    const st = weekStatus('2026-09-28', ONNIT, [s('2026-09-28', 'recovery')], FIRST)
+    expect(st.entries.some((e) => e.done)).toBe(false)
+  })
+
+  it('ticks off the day you trained, even when you did a different workout', () => {
+    // ONNIT full plan: Wednesday is recovery. A hard session on Wednesday still ticks Wednesday.
     const st = weekStatus('2026-09-30', ONNIT, [s('2026-09-30', 'foundation')], FIRST)
-    expect(st.entries[0]).toMatchObject({ workoutId: 'joe_rogan', done: true, doneOn: '2026-09-30' })
+    expect(st.entries.filter((e) => e.done).map((e) => [e.day, e.doneWorkoutId])).toEqual([[2, 'foundation']])
+  })
+
+  it('a session on a rest day catches up an earlier missed day', () => {
+    // KB-only full plan: Sunday is rest. Sunday's Rogan catches up Thursday's missed Rogan.
+    const st = weekStatus('2026-10-04', KB_ONLY, [s('2026-10-04', 'joe_rogan_podcast')], FIRST)
+    expect(st.entries.filter((e) => e.done).map((e) => e.day)).toEqual([0])
+  })
+
+  it("doesn't ask you to catch up a workout you already did on another day", () => {
+    // ONNIT: Monday missed, Monday's Rogan done on Tuesday instead. Wednesday shouldn't suggest Rogan again.
+    const sessions = [s('2026-09-29', 'joe_rogan')]
+    const sug = suggestToday('2026-09-30', weekStatus('2026-09-30', ONNIT, sessions, FIRST), sessions)
+    expect(sug.workoutId).toBe('recovery')
   })
 
   it("matches a session to its own day's slot before an earlier one", () => {
