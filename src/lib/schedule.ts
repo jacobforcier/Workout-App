@@ -51,15 +51,26 @@ export function weekStatus(date: ISODate, profile: RotationProfile, sessions: Do
   const entries: PlanEntry[] = plan.flatMap((workoutId, day) => (workoutId ? [{ day, workoutId, done: false, doneOn: null }] : []))
   const thisWeek = sessionsInWeek(sessions, weekStart)
 
+  const fill = (slot: PlanEntry | undefined, s: DoneSession) => {
+    if (!slot) return false
+    slot.done = true
+    slot.doneOn = s.performed_on
+    return true
+  }
+  // Prefer the slot planned for the session's own day, then the earliest open one.
+  const pick = (candidates: PlanEntry[], day: number) => candidates.find((e) => e.day === day) ?? candidates[0]
+
+  // Pass 1: exact matches, so an earlier swap can't take a slot a later session matches exactly.
+  const swaps: DoneSession[] = []
   for (const s of thisWeek) {
-    // Exact match first; otherwise a swap fills the next open slot of the same kind (hard vs recovery).
-    const slot =
-      entries.find((e) => !e.done && e.workoutId === s.workout_id) ??
-      entries.find((e) => !e.done && isRecovery(e.workoutId) === isRecovery(s.workout_id))
-    if (slot) {
-      slot.done = true
-      slot.doneOn = s.performed_on
-    }
+    const day = mondayIndex(s.performed_on)
+    if (!fill(pick(entries.filter((e) => !e.done && e.workoutId === s.workout_id), day), s)) swaps.push(s)
+  }
+  // Pass 2: a swap fills an open slot of the same kind (hard vs recovery) on its own day or an
+  // earlier missed one. It never ticks off a future day; it still counts toward the week's total.
+  for (const s of swaps) {
+    const day = mondayIndex(s.performed_on)
+    fill(pick(entries.filter((e) => !e.done && e.day <= day && isRecovery(e.workoutId) === isRecovery(s.workout_id)), day), s)
   }
 
   return {

@@ -26,6 +26,31 @@ describe('weekStatus', () => {
     expect(st.entries[0]).toMatchObject({ workoutId: 'joe_rogan', done: true })
   })
 
+  it('never lets a swap tick off a future day', () => {
+    // KB-only full plan: Mon Rogan · Tue Rec · Wed Family · Thu Rogan · Fri Rec · Sat S&S.
+    // Foundation on Tuesday (a recovery day) is an extra, not Wednesday's or Thursday's session.
+    const st = weekStatus('2026-09-30', KB_ONLY, [s('2026-09-28', 'joe_rogan_podcast'), s('2026-09-29', 'foundation')], FIRST)
+    expect(st.entries.filter((e) => e.done).map((e) => e.day)).toEqual([0])
+    expect(st.done).toBe(2)
+  })
+
+  it('lets a swap catch up an earlier missed day', () => {
+    const st = weekStatus('2026-09-30', ONNIT, [s('2026-09-30', 'foundation')], FIRST)
+    expect(st.entries[0]).toMatchObject({ workoutId: 'joe_rogan', done: true, doneOn: '2026-09-30' })
+  })
+
+  it("matches a session to its own day's slot before an earlier one", () => {
+    // ONNIT full plan has Rogan on Mon and Thu; Rogan done Thursday after missing Monday.
+    const st = weekStatus('2026-10-01', ONNIT, [s('2026-10-01', 'joe_rogan')], FIRST)
+    expect(st.entries.find((e) => e.done)?.day).toBe(3)
+  })
+
+  it('does not let an earlier swap steal a slot a later session matches exactly', () => {
+    // Foundation Monday, then Rogan Thursday: Rogan takes Thursday, foundation takes Monday.
+    const st = weekStatus('2026-10-01', ONNIT, [s('2026-09-28', 'foundation'), s('2026-10-01', 'joe_rogan')], FIRST)
+    expect(st.entries.filter((e) => e.done).map((e) => e.day)).toEqual([0, 3])
+  })
+
   it('ignores sessions from other weeks', () => {
     expect(weekStatus('2026-09-28', ONNIT, [s('2026-09-27', 'joe_rogan')], FIRST).done).toBe(0)
   })
