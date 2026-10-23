@@ -261,5 +261,88 @@
         ]
       }
     ]
+  },
+  {
+    "id": "day_a",
+    "name": "Day A: Squat & Press",
+    "summary": "Full-body circuit built around the goblet squat and overhead press, with swings, rows, and halos.",
+    "level": "beginner",
+    "estimatedMinutes": 25,
+    "recommendedFrequency": "1× per week, alternating with Day B and Simple & Sinister",
+    "kidSafe": false,
+    "notes": [
+      "Start the press and row with your weaker side, then match the reps on the other side.",
+      "End a set early when form breaks. Add a round only when every rep is clean."
+    ],
+    "warmup": [
+      {
+        "title": "Warm-up",
+        "format": "circuit",
+        "rounds": 1,
+        "items": [
+          { "exerciseId": "hip_circles", "seconds": 30, "perSide": false },
+          { "exerciseId": "cat_cow", "reps": 8, "perSide": false },
+          { "exerciseId": "hip_bridge", "reps": 8, "perSide": false }
+        ]
+      }
+    ],
+    "main": [
+      {
+        "title": "Circuit",
+        "format": "circuit",
+        "rounds": 3,
+        "maxRounds": 4,
+        "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Rest 60–90 s between rounds." },
+        "items": [
+          { "exerciseId": "goblet_squat", "reps": 12, "perSide": false },
+          { "exerciseId": "two_hand_swing", "reps": 12, "perSide": false },
+          { "exerciseId": "single_arm_press", "reps": 5, "perSide": true },
+          { "exerciseId": "single_arm_row", "reps": 10, "perSide": true },
+          { "exerciseId": "halo", "reps": 5, "perSide": true, "sideNames": ["Clockwise", "Counter-clockwise"] }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "day_b",
+    "name": "Day B: Lunge & Push-up",
+    "summary": "Full-body circuit with single-leg work, push-ups, high pulls, and a loaded carry.",
+    "level": "beginner",
+    "estimatedMinutes": 25,
+    "recommendedFrequency": "1× per week, alternating with Day A and Simple & Sinister",
+    "kidSafe": false,
+    "notes": [
+      "Start each one-sided exercise with your weaker side, then match the reps on the other side.",
+      "Single-leg deadlifts: lightly touch a wall for balance while you learn them.",
+      "Suitcase carry: hold the bell in one hand only and don't lean."
+    ],
+    "warmup": [
+      {
+        "title": "Warm-up",
+        "format": "circuit",
+        "rounds": 1,
+        "items": [
+          { "exerciseId": "hip_circles", "seconds": 30, "perSide": false },
+          { "exerciseId": "worlds_greatest_stretch", "seconds": 30, "perSide": true },
+          { "exerciseId": "hip_bridge", "reps": 8, "perSide": false }
+        ]
+      }
+    ],
+    "main": [
+      {
+        "title": "Circuit",
+        "format": "circuit",
+        "rounds": 3,
+        "maxRounds": 4,
+        "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Rest 60–90 s between rounds." },
+        "items": [
+          { "exerciseId": "goblet_reverse_lunge", "reps": 8, "perSide": true },
+          { "exerciseId": "single_leg_deadlift", "reps": 8, "perSide": true },
+          { "exerciseId": "push_up", "reps": 12, "perSide": false },
+          { "exerciseId": "kb_high_pull", "reps": 8, "perSide": true },
+          { "exerciseId": "suitcase_carry", "seconds": 30, "perSide": true }
+        ]
+      }
+    ]
   }
 ]

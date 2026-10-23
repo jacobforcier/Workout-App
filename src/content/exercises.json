@@ -679,5 +679,86 @@
     "videoUrl": "https://www.youtube.com/watch?v=SUqsBTSldyk",
     "videoTitle": "Kettlebell Renegade Row | Onnit Academy",
     "substitutions": ["single_arm_row"]
+  },
+  {
+    "id": "goblet_reverse_lunge",
+    "name": "Goblet reverse lunge",
+    "category": "lunge",
+    "equipment": ["kettlebell"],
+    "kidSafe": true,
+    "steps": [
+      "Hold the bell by the horns at your chest, elbows tucked, standing tall.",
+      "Step one foot straight back and lower until your back knee nearly touches the floor.",
+      "Keep most of your weight on the front foot, shin close to vertical.",
+      "Drive through the front heel to stand back up and bring your feet together.",
+      "Finish all reps on one leg, then switch."
+    ],
+    "formCues": [
+      "Chest tall, bell close.",
+      "Front knee tracks over the toes.",
+      "Push the floor away with the front heel."
+    ],
+    "commonMistakes": [
+      "Leaning forward and letting the bell drift away from the chest.",
+      "Front knee caving inward.",
+      "Stepping back too short, so the front heel lifts."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["goblet_squat"]
+  },
+  {
+    "id": "single_leg_deadlift",
+    "name": "Single-leg deadlift",
+    "category": "hinge",
+    "equipment": ["kettlebell"],
+    "kidSafe": true,
+    "steps": [
+      "Hold the bell in one hand and stand on the opposite leg with a soft knee.",
+      "Hinge at the hip, reaching the bell toward the floor while your free leg extends straight behind you.",
+      "Go down until your torso is nearly parallel to the floor or you feel a strong hamstring stretch.",
+      "Squeeze the standing glute to return to tall standing.",
+      "Finish all reps on one leg, then switch."
+    ],
+    "formCues": [
+      "Hips square to the floor.",
+      "Back leg and torso move as one line.",
+      "Slow on the way down."
+    ],
+    "commonMistakes": [
+      "Opening the hip so the back leg rotates out.",
+      "Rounding the back to reach lower.",
+      "Rushing and losing balance. Lightly touch a wall if you need to."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["kb_deadlift"]
+  },
+  {
+    "id": "kb_high_pull",
+    "name": "Kettlebell high pull",
+    "category": "pull",
+    "equipment": ["kettlebell"],
+    "kidSafe": false,
+    "steps": [
+      "Start like a one-arm swing: bell on the floor in front of you, hinge and hike it back.",
+      "Snap your hips forward to float the bell up.",
+      "As it rises, pull the elbow back and up so the bell finishes near chest height, elbow high.",
+      "Let the bell fall back into the swing path and hike it between your legs for the next rep.",
+      "Finish all reps on one side, then switch."
+    ],
+    "formCues": [
+      "Hips drive it, the arm guides it.",
+      "Elbow high and back, like starting a lawnmower.",
+      "Keep the shoulder down, away from the ear."
+    ],
+    "commonMistakes": [
+      "Lifting with the arm instead of the hips.",
+      "Shrugging the shoulder up.",
+      "Letting the bell pull you forward at the top."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["single_arm_row"]
   }
 ]
