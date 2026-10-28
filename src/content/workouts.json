@@ -108,7 +108,7 @@
         "format": "sets",
         "items": [
           { "exerciseId": "one_arm_swing", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 120, "guidance": "Rest at least 2 minutes. Recover fully so every rep stays clean and controlled." } },
-          { "exerciseId": "kb_clean_and_press", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 120, "guidance": "Rest at least 2 minutes. Recover fully so every rep stays clean and controlled." } },
+          { "exerciseId": "kb_clean_and_press", "sets": 3, "reps": 5, "perSide": true, "rest": { "seconds": 120, "guidance": "Rest at least 2 minutes. Recover fully so every rep stays clean and controlled." } },
           { "exerciseId": "windmill", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 120, "guidance": "Rest at least 2 minutes. Recover fully so every rep stays clean and controlled." } },
           { "exerciseId": "renegade_row", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 120, "guidance": "Rest at least 2 minutes. Recover fully so every rep stays clean and controlled." } }
         ]
