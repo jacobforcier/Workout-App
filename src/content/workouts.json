@@ -233,7 +233,7 @@
   {
     "id": "recovery",
     "name": "Recovery day",
-    "summary": "Gentle mobility, light halos, and a 20-minute walk. Counts toward your streak.",
+    "summary": "Gentle mobility, light halos, and a 30-minute brisk walk. Counts toward your streak.",
     "level": "beginner",
     "estimatedMinutes": 35,
     "recommendedFrequency": "On days between harder sessions",
@@ -257,7 +257,7 @@
         "title": "Walk",
         "format": "timed",
         "items": [
-          { "exerciseId": "walk", "seconds": 1200, "perSide": false }
+          { "exerciseId": "walk", "seconds": 1800, "perSide": false, "note": "Brisk pace, easy breathing. Go up to 45 minutes if you feel good. A light backpack (10–15 lb) or a hill makes it a bit harder." }
         ]
       }
     ]
@@ -341,6 +341,102 @@
           { "exerciseId": "push_up", "reps": 12, "perSide": false },
           { "exerciseId": "kb_high_pull", "reps": 8, "perSide": true },
           { "exerciseId": "suitcase_carry", "seconds": 30, "perSide": true }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "rogan_circuit",
+    "name": "Rogan circuit",
+    "summary": "The Joe Rogan kettlebell moves as a continuous circuit: one-arm swings, clean and press, renegade rows, and windmills.",
+    "level": "intermediate",
+    "estimatedMinutes": 30,
+    "recommendedFrequency": "Mon–Wed in the 5-on, 2-off week",
+    "kidSafe": false,
+    "notes": [
+      "Move from exercise to exercise without resting; rest only between rounds.",
+      "Clean and press: stop the set when form breaks. Add a rep only when every set is clean.",
+      "Start each one-sided exercise with your weaker side, then match the reps on the other side.",
+      "Lower back or shoulders beat up by the third day in a row? Do fewer rounds instead of pushing through."
+    ],
+    "warmup": [
+      {
+        "title": "Warm-up",
+        "format": "circuit",
+        "rounds": 2,
+        "items": [
+          { "exerciseId": "bodyweight_squat", "reps": 20, "perSide": false },
+          { "exerciseId": "push_up", "reps": 20, "perSide": false }
+        ]
+      }
+    ],
+    "main": [
+      {
+        "title": "Circuit",
+        "format": "circuit",
+        "rounds": 3,
+        "maxRounds": 4,
+        "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Rest 60–90 s between rounds." },
+        "items": [
+          { "exerciseId": "one_arm_swing", "reps": 10, "perSide": true },
+          { "exerciseId": "kb_clean_and_press", "reps": 5, "perSide": true },
+          { "exerciseId": "renegade_row", "reps": 5, "perSide": true },
+          { "exerciseId": "windmill", "reps": 5, "perSide": true }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tempo_strength",
+    "name": "Slow tempo strength",
+    "summary": "Straight sets with full rest: strict presses, slow goblet squats, rows, and swings. Built for muscle, not cardio.",
+    "level": "intermediate",
+    "estimatedMinutes": 30,
+    "recommendedFrequency": "Fri and Sat in the 5-on, 2-off week",
+    "kidSafe": false,
+    "notes": [
+      "Slow down and keep tension on the muscle. This shouldn't feel like a cardio session.",
+      "Press: squeeze your glutes and brace so your body doesn't lean or twist.",
+      "Goblet squats: 3 seconds down, 1-second pause at the bottom, then drive up."
+    ],
+    "warmup": [
+      {
+        "title": "Warm-up",
+        "format": "circuit",
+        "rounds": 1,
+        "items": [
+          { "exerciseId": "hip_circles", "seconds": 30, "perSide": false },
+          { "exerciseId": "halo", "reps": 10, "perSide": true, "sideNames": ["Clockwise", "Counter-clockwise"] }
+        ]
+      }
+    ],
+    "main": [
+      {
+        "title": "Strict press",
+        "format": "sets",
+        "items": [
+          { "exerciseId": "single_arm_press", "sets": 4, "reps": 5, "perSide": true, "rest": { "seconds": 60, "guidance": "Rest 60 s between sets." } }
+        ]
+      },
+      {
+        "title": "Tempo goblet squat",
+        "format": "sets",
+        "items": [
+          { "exerciseId": "goblet_squat", "sets": 4, "reps": 10, "perSide": false, "note": "3 seconds down, 1-second pause, drive up.", "rest": { "seconds": 60, "guidance": "Rest 60 s between sets." } }
+        ]
+      },
+      {
+        "title": "Row",
+        "format": "sets",
+        "items": [
+          { "exerciseId": "single_arm_row", "sets": 3, "reps": 8, "perSide": true, "note": "Slow and controlled. Renegade rows work too.", "rest": { "seconds": 60, "guidance": "Rest 60 s between sets." } }
+        ]
+      },
+      {
+        "title": "Swings",
+        "format": "sets",
+        "items": [
+          { "exerciseId": "one_arm_swing", "sets": 3, "reps": 15, "perSide": true, "rest": { "seconds": 60, "guidance": "Rest 60 s between sets." } }
         ]
       }
     ]
