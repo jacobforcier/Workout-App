@@ -380,8 +380,8 @@
         "items": [
           { "exerciseId": "one_arm_swing", "reps": 10, "perSide": true },
           { "exerciseId": "kb_clean_and_press", "reps": 5, "perSide": true },
-          { "exerciseId": "renegade_row", "reps": 5, "perSide": true },
-          { "exerciseId": "windmill", "reps": 5, "perSide": true }
+          { "exerciseId": "renegade_row", "reps": 10, "perSide": true },
+          { "exerciseId": "windmill", "reps": 10, "perSide": true }
         ]
       }
     ]
