@@ -429,7 +429,7 @@
         "title": "Row",
         "format": "sets",
         "items": [
-          { "exerciseId": "single_arm_row", "sets": 3, "reps": 8, "perSide": true, "note": "Slow and controlled. Renegade rows work too.", "rest": { "seconds": 60, "guidance": "Rest 60 s between sets." } }
+          { "exerciseId": "single_arm_row", "sets": 3, "reps": 10, "perSide": true, "note": "Slow and controlled. Renegade rows work too.", "rest": { "seconds": 60, "guidance": "Rest 60 s between sets." } }
         ]
       },
       {
