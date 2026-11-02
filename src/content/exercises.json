@@ -760,5 +760,193 @@
     "videoUrl": null,
     "videoTitle": null,
     "substitutions": ["single_arm_row"]
+  },
+  {
+    "id": "bulgarian_split_squat",
+    "name": "Bulgarian split squat",
+    "category": "squat",
+    "equipment": ["kettlebell"],
+    "kidSafe": false,
+    "steps": [
+      "Stand about two feet in front of a couch, chair, or step and rest the top of your back foot on it.",
+      "Hold the bell at your chest by the horns.",
+      "Lower straight down until your front thigh is about parallel to the floor and your back knee is near the ground.",
+      "Drive through your front heel to stand back up.",
+      "Finish all reps on one leg, then switch."
+    ],
+    "formCues": [
+      "Most of your weight on the front leg.",
+      "Torso tall, slight forward lean is fine.",
+      "Front knee tracks over your toes."
+    ],
+    "commonMistakes": [
+      "Front foot too close, so the heel lifts.",
+      "Pushing off the back foot.",
+      "Bouncing out of the bottom."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["goblet_reverse_lunge"]
+  },
+  {
+    "id": "kb_floor_press",
+    "name": "Single-arm floor press",
+    "category": "push",
+    "equipment": ["kettlebell"],
+    "kidSafe": false,
+    "steps": [
+      "Lie on your back with knees bent and feet flat.",
+      "Hold the bell in one hand with your upper arm on the floor at about 45\u00b0 from your body.",
+      "Press the bell straight up over your shoulder until your arm is locked out.",
+      "Lower slowly until your upper arm touches the floor, pause, and press again.",
+      "Finish all reps on one side, then switch."
+    ],
+    "formCues": [
+      "Wrist straight, bell resting on the back of your forearm.",
+      "Pause with the elbow on the floor; no bouncing.",
+      "Keep the free arm out to the side for balance."
+    ],
+    "commonMistakes": [
+      "Flaring the elbow straight out to the side.",
+      "Letting the wrist bend back.",
+      "Rolling onto the opposite hip."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["push_up"]
+  },
+  {
+    "id": "table_row",
+    "name": "Table row",
+    "category": "pull",
+    "equipment": [],
+    "kidSafe": false,
+    "steps": [
+      "Lie on your back under a sturdy table and grab the edge with both hands, shoulder-width apart.",
+      "Straighten your body into a plank, heels on the floor.",
+      "Pull your chest up to the table edge, squeezing your shoulder blades together.",
+      "Lower slowly until your arms are straight.",
+      "Make it easier by bending your knees; harder by raising your feet."
+    ],
+    "formCues": [
+      "Body stays one straight line.",
+      "Lead with your chest.",
+      "Squeeze at the top for a beat."
+    ],
+    "commonMistakes": [
+      "Using a table that can tip. Test it first.",
+      "Hips sagging.",
+      "Shrugging shoulders up to your ears."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["single_arm_row"]
+  },
+  {
+    "id": "pike_push_up",
+    "name": "Pike push-up",
+    "category": "push",
+    "equipment": [],
+    "kidSafe": false,
+    "steps": [
+      "Start in a push-up position, then walk your feet in and lift your hips high so your body makes an upside-down V.",
+      "Bend your elbows and lower the top of your head toward the floor just in front of your hands.",
+      "Press back up until your arms are straight.",
+      "Make it harder by putting your feet on a step or couch."
+    ],
+    "formCues": [
+      "Hips stay high the whole time.",
+      "Head goes forward of your hands, making a triangle.",
+      "Elbows angle back, not straight out."
+    ],
+    "commonMistakes": [
+      "Dropping the hips into a regular push-up.",
+      "Short range of motion.",
+      "Flaring the elbows wide."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["push_up"]
+  },
+  {
+    "id": "feet_elevated_push_up",
+    "name": "Feet-elevated push-up",
+    "category": "push",
+    "equipment": [],
+    "kidSafe": false,
+    "steps": [
+      "Put your feet on a step, chair, or couch and your hands on the floor slightly wider than your shoulders.",
+      "Brace into a straight plank from heels to head.",
+      "Lower your chest to the floor with elbows at about 45\u00b0.",
+      "Press back up to straight arms.",
+      "The higher your feet, the harder it gets."
+    ],
+    "formCues": [
+      "Body moves as one plank.",
+      "Chest touches first.",
+      "Elbows back at 45\u00b0."
+    ],
+    "commonMistakes": [
+      "Hips piking up or sagging.",
+      "Partial reps.",
+      "Head dropping toward the floor."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["push_up"]
+  },
+  {
+    "id": "cossack_squat",
+    "name": "Cossack squat",
+    "category": "squat",
+    "equipment": ["kettlebell"],
+    "kidSafe": false,
+    "steps": [
+      "Stand with your feet very wide, toes turned slightly out.",
+      "Shift your weight to one side and sit down into that hip, keeping the other leg straight with the toes pointing up.",
+      "Go as low as you can while keeping the heel of the bent leg down.",
+      "Push back up to the middle, then repeat on the other side.",
+      "Start with bodyweight; hold the bell at your chest once that's easy."
+    ],
+    "formCues": [
+      "Heel of the working leg stays down.",
+      "Chest up.",
+      "Go only as deep as you control."
+    ],
+    "commonMistakes": [
+      "Heel lifting.",
+      "Rounding the back to get lower.",
+      "Dropping fast into the bottom."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["goblet_squat"]
+  },
+  {
+    "id": "single_leg_hip_bridge",
+    "name": "Single-leg hip bridge",
+    "category": "hinge",
+    "equipment": ["kettlebell"],
+    "kidSafe": false,
+    "steps": [
+      "Lie on your back with one knee bent and that foot flat, the other leg straight or held up.",
+      "Rest the bell on the hip of the working side and hold it in place.",
+      "Drive through your heel to lift your hips until your body is straight from shoulder to knee.",
+      "Squeeze your glute for a second at the top, then lower slowly.",
+      "Finish all reps on one leg, then switch."
+    ],
+    "formCues": [
+      "Push through the heel.",
+      "Hips stay level.",
+      "Squeeze at the top."
+    ],
+    "commonMistakes": [
+      "Arching the lower back instead of using the glute.",
+      "Hips dropping to one side.",
+      "Rushing the lowering."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["hip_bridge"]
   }
 ]
