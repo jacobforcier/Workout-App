@@ -7,6 +7,9 @@ import type {
   Household,
   HouseholdInvite,
   HouseholdMember,
+  MealEntry,
+  MealStatus,
+  NutritionTargets,
   SessionRow,
   SessionWithLogs,
   SetLogInput,
@@ -181,4 +184,18 @@ export async function listBodyMetrics(athleteId: string): Promise<BodyMetric[]> 
 
 export async function addBodyMetric(input: Omit<BodyMetric, 'id'>): Promise<void> {
   await run(() => supabase.from('body_metrics').insert(input))
+}
+
+export async function getNutritionTargets(athleteId: string): Promise<NutritionTargets | null> {
+  return run(() => supabase.from('nutrition_targets').select('*').eq('athlete_id', athleteId).maybeSingle())
+}
+
+export async function listMealEntries(athleteId: string, day: string): Promise<MealEntry[]> {
+  return run(() =>
+    supabase.from('meal_entries').select('*').eq('athlete_id', athleteId).eq('eaten_on', day).order('meal').order('position').order('created_at'),
+  )
+}
+
+export async function setMealEntryStatus(id: string, status: MealStatus): Promise<void> {
+  await run(() => supabase.from('meal_entries').update({ status }).eq('id', id))
 }

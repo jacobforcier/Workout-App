@@ -7,6 +7,7 @@ const tabs = [
   { to: '/', label: 'Today', icon: '🏠' },
   { to: '/library', label: 'Library', icon: '📖' },
   { to: '/progress', label: 'Progress', icon: '📈' },
+  { to: '/food', label: 'Food', icon: '🍽️' },
   { to: '/family', label: 'Family', icon: '👪' },
 ]
 
@@ -33,7 +34,7 @@ export default function Layout() {
       </main>
 
       <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
-        <ul className="mx-auto grid max-w-xl grid-cols-4">
+        <ul className="mx-auto grid max-w-xl grid-cols-5">
           {tabs.map((t) => (
             <li key={t.to}>
               <NavLink

@@ -88,3 +88,38 @@ export interface BodyMetric {
   bodyweight_lb: number | null
   waist_in: number | null
 }
+
+export interface NutritionTargets {
+  athlete_id: string
+  kcal: number
+  protein_g: number
+  fat_g: number | null
+  carbs_g: number | null
+  fiber_g: number | null
+  flex_kcal: number
+  window_start: string | null
+  window_end: string | null
+  notes: string | null
+}
+
+export type MealSlot = 'meal_1' | 'meal_2' | 'meal_3' | 'flex' | 'other'
+export type MealStatus = 'planned' | 'eaten' | 'skipped'
+
+export interface MealEntry {
+  id: string
+  athlete_id: string
+  eaten_on: string
+  meal: MealSlot
+  position: number
+  food_id: string | null
+  name: string
+  amount_label: string | null
+  grams: number | null
+  kcal: number
+  protein_g: number
+  fat_g: number | null
+  carbs_g: number | null
+  fiber_g: number | null
+  status: MealStatus
+  notes: string | null
+}

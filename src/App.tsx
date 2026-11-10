@@ -5,6 +5,7 @@ import { ErrorBox, Spinner } from './components/ui'
 import { isConfigured } from './config'
 import ExerciseDetail from './pages/ExerciseDetail'
 import Family from './pages/Family'
+import Food from './pages/Food'
 import Library from './pages/Library'
 import Login from './pages/Login'
 import SessionPlayer from './pages/SessionPlayer'
@@ -56,6 +57,7 @@ export default function App() {
               </Suspense>
             }
           />
+          <Route path="food" element={<Food />} />
           <Route path="family" element={<Family />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
