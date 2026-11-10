@@ -366,7 +366,7 @@
         "rounds": 2,
         "items": [
           { "exerciseId": "bodyweight_squat", "reps": 20, "perSide": false },
-          { "exerciseId": "push_up", "reps": 20, "perSide": false }
+          { "exerciseId": "push_up", "reps": 15, "perSide": false }
         ]
       }
     ],
