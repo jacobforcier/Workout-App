@@ -123,3 +123,33 @@ export interface MealEntry {
   status: MealStatus
   notes: string | null
 }
+
+export type RecipeCategory = 'breakfast' | 'lunch' | 'meal_3' | 'dinner' | 'snack' | 'dessert' | 'other'
+
+export interface RecipeIngredient {
+  item: string
+  amount?: string
+  note?: string
+}
+
+export interface Recipe {
+  id: string
+  household_id: string
+  name: string
+  summary: string | null
+  source_name: string | null
+  source_url: string | null
+  category: RecipeCategory
+  servings: number
+  serving_label: string | null
+  prep_minutes: number | null
+  ingredients: RecipeIngredient[]
+  steps: string[]
+  notes: string | null
+  kcal: number | null
+  protein_g: number | null
+  fat_g: number | null
+  carbs_g: number | null
+  fiber_g: number | null
+  tags: string[]
+}

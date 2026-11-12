@@ -6,6 +6,7 @@ import { isConfigured } from './config'
 import ExerciseDetail from './pages/ExerciseDetail'
 import Family from './pages/Family'
 import Food from './pages/Food'
+import { RecipeDetail, RecipeList } from './pages/Recipes'
 import Library from './pages/Library'
 import Login from './pages/Login'
 import SessionPlayer from './pages/SessionPlayer'
@@ -58,6 +59,8 @@ export default function App() {
             }
           />
           <Route path="food" element={<Food />} />
+          <Route path="food/recipes" element={<RecipeList />} />
+          <Route path="food/recipes/:id" element={<RecipeDetail />} />
           <Route path="family" element={<Family />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

@@ -10,6 +10,7 @@ import type {
   MealEntry,
   MealStatus,
   NutritionTargets,
+  Recipe,
   SessionRow,
   SessionWithLogs,
   SetLogInput,
@@ -198,4 +199,12 @@ export async function listMealEntries(athleteId: string, day: string): Promise<M
 
 export async function setMealEntryStatus(id: string, status: MealStatus): Promise<void> {
   await run(() => supabase.from('meal_entries').update({ status }).eq('id', id))
+}
+
+export async function listRecipes(householdId: string): Promise<Recipe[]> {
+  return run(() => supabase.from('recipes').select('*').eq('household_id', householdId).order('name'))
+}
+
+export async function getRecipe(id: string): Promise<Recipe | null> {
+  return run(() => supabase.from('recipes').select('*').eq('id', id).maybeSingle())
 }

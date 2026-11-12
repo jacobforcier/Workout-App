@@ -58,7 +58,12 @@ function FoodFor({ athlete }: { athlete: Athlete }) {
 
   return (
     <div className="space-y-4">
-      <PageTitle sub="Meals Claude logged and planned for you.">Food</PageTitle>
+      <div className="flex items-start justify-between gap-3">
+        <PageTitle sub="Meals Claude logged and planned for you.">Food</PageTitle>
+        <Link to="/food/recipes" className="mt-1 shrink-0 rounded-2xl bg-slate-100 px-4 py-2 font-semibold dark:bg-slate-800">
+          📖 Recipes
+        </Link>
+      </div>
 
       <div className="flex items-center justify-between gap-2">
         <Button variant="secondary" aria-label="Previous day" onClick={() => setDay(addDays(day, -1))}>
