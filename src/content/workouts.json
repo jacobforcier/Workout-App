@@ -446,12 +446,13 @@
     "name": "Strength A",
     "summary": "Tempo goblet squats, single-arm press and row, single-leg deadlifts, and push-ups.",
     "level": "intermediate",
-    "estimatedMinutes": 35,
+    "estimatedMinutes": 30,
     "recommendedFrequency": "Mon / Wed / Fri, rotating A, B, C",
     "kidSafe": false,
     "notes": [
       "Stop each set with 1–2 reps left in the tank. Effort builds muscle, not just weight.",
       "Do your left side first, then match those reps on the right.",
+      "Paired exercises: do one set of each back to back, then rest. Each muscle rests while you work the other, so it saves time without costing results.",
       "When you hit the top of the rep range on all 3 sets, make it harder: slower lowering, a pause at the bottom, or a tougher variation."
     ],
     "warmup": [
@@ -468,13 +469,6 @@
     ],
     "main": [
       {
-        "title": "Tempo goblet squat",
-        "format": "sets",
-        "items": [
-          { "exerciseId": "goblet_squat", "sets": 3, "reps": 10, "perSide": false, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "10–15 reps. 3 seconds down, 1-second pause, drive up." }
-        ]
-      },
-      {
         "title": "Single-arm press",
         "format": "sets",
         "items": [
@@ -482,24 +476,23 @@
         ]
       },
       {
-        "title": "Single-arm row",
-        "format": "sets",
+        "title": "Pair 1: goblet squat + row",
+        "format": "circuit",
+        "rounds": 3,
+        "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Do one set of each back to back, then rest 60–90 s." },
         "items": [
-          { "exerciseId": "single_arm_row", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "10–15 reps per side." }
+          { "exerciseId": "goblet_squat", "reps": 10, "perSide": false, "note": "10–15 reps. 3 seconds down, 1-second pause, drive up." },
+          { "exerciseId": "single_arm_row", "reps": 10, "perSide": true, "note": "10–15 reps per side." }
         ]
       },
       {
-        "title": "Single-leg deadlift",
-        "format": "sets",
+        "title": "Pair 2: single-leg deadlift + push-ups",
+        "format": "circuit",
+        "rounds": 3,
+        "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Do one set of each back to back, then rest 60–90 s." },
         "items": [
-          { "exerciseId": "single_leg_deadlift", "sets": 3, "reps": 8, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "8–12 reps per side." }
-        ]
-      },
-      {
-        "title": "Push-ups",
-        "format": "sets",
-        "items": [
-          { "exerciseId": "push_up", "sets": 3, "reps": 10, "perSide": false, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "As many as you can with good form; log what you got." }
+          { "exerciseId": "single_leg_deadlift", "reps": 8, "perSide": true, "note": "8–12 reps per side." },
+          { "exerciseId": "push_up", "reps": 10, "perSide": false, "note": "As many as you can with good form; log what you got." }
         ]
       }
     ]
@@ -509,12 +502,13 @@
     "name": "Strength B",
     "summary": "Bulgarian split squats, floor press, table rows, single-leg bridges, pike push-ups, and carries.",
     "level": "intermediate",
-    "estimatedMinutes": 35,
+    "estimatedMinutes": 30,
     "recommendedFrequency": "Mon / Wed / Fri, rotating A, B, C",
     "kidSafe": false,
     "notes": [
       "Stop each set with 1–2 reps left in the tank. Effort builds muscle, not just weight.",
       "Do your left side first, then match those reps on the right.",
+      "Paired exercises: do one set of each back to back, then rest. Each muscle rests while you work the other, so it saves time without costing results.",
       "When you hit the top of the rep range on all 3 sets, make it harder: slower lowering, a pause at the bottom, or a tougher variation."
     ],
     "warmup": [
@@ -531,24 +525,23 @@
     ],
     "main": [
       {
-        "title": "Bulgarian split squat",
-        "format": "sets",
+        "title": "Pair 1: split squat + floor press",
+        "format": "circuit",
+        "rounds": 3,
+        "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Do one set of each back to back, then rest 60–90 s." },
         "items": [
-          { "exerciseId": "bulgarian_split_squat", "sets": 3, "reps": 8, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "8–12 reps per side. Bell at your chest." }
+          { "exerciseId": "bulgarian_split_squat", "reps": 8, "perSide": true, "note": "8–12 reps per side. Bell at your chest." },
+          { "exerciseId": "kb_floor_press", "reps": 10, "perSide": true, "note": "10–15 reps per side." }
         ]
       },
       {
-        "title": "Single-arm floor press",
-        "format": "sets",
+        "title": "Pair 2: row + pike push-up",
+        "format": "circuit",
+        "rounds": 3,
+        "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Do one set of each back to back, then rest 60–90 s." },
         "items": [
-          { "exerciseId": "kb_floor_press", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "10–15 reps per side." }
-        ]
-      },
-      {
-        "title": "Table row",
-        "format": "sets",
-        "items": [
-          { "exerciseId": "table_row", "sets": 3, "reps": 8, "perSide": false, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "8–15 reps." }
+          { "exerciseId": "table_row", "reps": 8, "perSide": false, "note": "8–15 reps." },
+          { "exerciseId": "pike_push_up", "reps": 6, "perSide": false, "note": "6–12 reps." }
         ]
       },
       {
@@ -556,13 +549,6 @@
         "format": "sets",
         "items": [
           { "exerciseId": "single_leg_hip_bridge", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "10–15 reps per side. Bell on your hip." }
-        ]
-      },
-      {
-        "title": "Pike push-up",
-        "format": "sets",
-        "items": [
-          { "exerciseId": "pike_push_up", "sets": 3, "reps": 6, "perSide": false, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "6–12 reps." }
         ]
       },
       {
@@ -579,12 +565,13 @@
     "name": "Strength C",
     "summary": "Reverse lunges, feet-elevated push-ups, paused rows, Cossack squats, slow presses, and windmills.",
     "level": "intermediate",
-    "estimatedMinutes": 35,
+    "estimatedMinutes": 30,
     "recommendedFrequency": "Mon / Wed / Fri, rotating A, B, C",
     "kidSafe": false,
     "notes": [
       "Stop each set with 1–2 reps left in the tank. Effort builds muscle, not just weight.",
       "Do your left side first, then match those reps on the right.",
+      "Paired exercises: do one set of each back to back, then rest. Each muscle rests while you work the other, so it saves time without costing results.",
       "When you hit the top of the rep range on all 3 sets, make it harder: slower lowering, a pause at the bottom, or a tougher variation."
     ],
     "warmup": [
@@ -601,38 +588,30 @@
     ],
     "main": [
       {
-        "title": "Goblet reverse lunge",
-        "format": "sets",
-        "items": [
-          { "exerciseId": "goblet_reverse_lunge", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "10–12 reps per side. Bell at your chest." }
-        ]
-      },
-      {
-        "title": "Feet-elevated push-up",
-        "format": "sets",
-        "items": [
-          { "exerciseId": "feet_elevated_push_up", "sets": 3, "reps": 10, "perSide": false, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "As many as you can with good form; log what you got." }
-        ]
-      },
-      {
-        "title": "Paused row",
-        "format": "sets",
-        "items": [
-          { "exerciseId": "single_arm_row", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "10–12 reps per side. Hold 2 seconds at the top." }
-        ]
-      },
-      {
-        "title": "Cossack squat",
-        "format": "sets",
-        "items": [
-          { "exerciseId": "cossack_squat", "sets": 3, "reps": 6, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "6–10 reps per side. Bodyweight to start." }
-        ]
-      },
-      {
         "title": "Slow press",
         "format": "sets",
         "items": [
           { "exerciseId": "single_arm_press", "sets": 3, "reps": 5, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "5–8 reps per side. 3 seconds lowering." }
+        ]
+      },
+      {
+        "title": "Pair 1: reverse lunge + paused row",
+        "format": "circuit",
+        "rounds": 3,
+        "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Do one set of each back to back, then rest 60–90 s." },
+        "items": [
+          { "exerciseId": "goblet_reverse_lunge", "reps": 10, "perSide": true, "note": "10–12 reps per side. Bell at your chest." },
+          { "exerciseId": "single_arm_row", "reps": 10, "perSide": true, "note": "10–12 reps per side. Hold 2 seconds at the top." }
+        ]
+      },
+      {
+        "title": "Pair 2: Cossack squat + push-up",
+        "format": "circuit",
+        "rounds": 3,
+        "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Do one set of each back to back, then rest 60–90 s." },
+        "items": [
+          { "exerciseId": "cossack_squat", "reps": 6, "perSide": true, "note": "6–10 reps per side. Bodyweight to start." },
+          { "exerciseId": "feet_elevated_push_up", "reps": 10, "perSide": false, "note": "As many as you can with good form; log what you got." }
         ]
       },
       {
