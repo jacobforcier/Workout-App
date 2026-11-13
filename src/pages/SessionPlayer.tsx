@@ -12,6 +12,7 @@ import { listSessions, listSessionsWithLogs, recentWorkoutSessions, saveSession,
 import { unlockAudio } from '../lib/beep'
 import { formatDate, formatDuration, today } from '../lib/dates'
 import {
+  bellForExercise,
   buildPlan,
   buildSetLogs,
   defaultEntryLog,
@@ -148,11 +149,24 @@ function Player({ workout, athlete, kidMode }: { workout: Workout; athlete: Athl
     [steps, exerciseFor],
   )
 
+  // Bell picked per exercise this session, so a heavier bell on set 1 carries to the later sets.
+  const [bellByExercise, setBellByExercise] = useState<Record<string, number>>({})
   const logFor = useCallback(
-    (e: Entry): EntryLog => logs[e.id] ?? defaultEntryLog(e, exerciseFor(e.itemKey, e.item.exerciseId), sessionBell),
-    [logs, exerciseFor, sessionBell],
+    (e: Entry): EntryLog => {
+      if (logs[e.id]) return logs[e.id]
+      const exId = exerciseFor(e.itemKey, e.item.exerciseId)
+      return defaultEntryLog(e, exId, bellForExercise(exId, sessionBell, bellByExercise, lastSession))
+    },
+    [logs, exerciseFor, sessionBell, bellByExercise, lastSession],
   )
-  const updateEntry = (e: Entry, patch: Partial<EntryLog>) => setLogs((l) => ({ ...l, [e.id]: { ...logFor(e), ...patch } }))
+  const updateEntry = (e: Entry, patch: Partial<EntryLog>) => {
+    if (patch.weight !== undefined && patch.weight !== null) {
+      const exId = exerciseFor(e.itemKey, e.item.exerciseId)
+      const w = patch.weight
+      setBellByExercise((b) => ({ ...b, [exId]: w }))
+    }
+    setLogs((l) => ({ ...l, [e.id]: { ...logFor(e), ...patch } }))
+  }
 
   const lastTimeFor = (exerciseId: string) => (lastSession ? summarizeExercise(exerciseId, lastSession.set_logs) : null)
 

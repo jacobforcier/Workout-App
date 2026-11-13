@@ -243,6 +243,34 @@ export interface EntryLog {
 }
 
 /** Pre-filled log: the target reps/seconds and the session bell for loaded exercises. */
+/**
+ * The bell an exercise should default to. With more than one bell, people use different bells for
+ * different lifts (heavy for swings and squats, light for presses), so a choice sticks:
+ * 1. the bell picked for this exercise earlier in this session,
+ * 2. else the bell used for it last time, but only if that was a deliberate pick (different from
+ *    last session's main bell), so changing the session bell still moves everything else,
+ * 3. else the session bell.
+ */
+export function bellForExercise(
+  exerciseId: string,
+  sessionBell: number,
+  chosenThisSession: Record<string, number>,
+  lastSession: { bell_lb: number | null; set_logs: { exercise_id: string; weight_lb: number | null }[] } | null,
+): number {
+  const chosen = chosenThisSession[exerciseId]
+  if (chosen !== undefined) return chosen
+  if (lastSession) {
+    const used = lastSession.set_logs
+      .filter((l) => l.exercise_id === exerciseId && l.weight_lb !== null && l.weight_lb > 0)
+      .map((l) => Number(l.weight_lb))
+    if (used.length > 0) {
+      const heaviest = Math.max(...used)
+      if (heaviest !== lastSession.bell_lb) return heaviest
+    }
+  }
+  return sessionBell
+}
+
 export function defaultEntryLog(e: Entry, exerciseId: string, bell: number): EntryLog {
   return {
     reps: e.item.reps ?? null,
