@@ -444,7 +444,7 @@
   {
     "id": "strength_a",
     "name": "Strength A",
-    "summary": "Tempo goblet squats, single-arm press and row, single-leg deadlifts, and push-ups.",
+    "summary": "Tempo goblet squats, single-arm press and row, kickstand deadlifts, and push-ups.",
     "level": "intermediate",
     "estimatedMinutes": 30,
     "recommendedFrequency": "Mon / Wed / Fri, rotating A, B, C",
@@ -486,12 +486,12 @@
         ]
       },
       {
-        "title": "Pair 2: single-leg deadlift + push-ups",
+        "title": "Pair 2: kickstand deadlift + push-ups",
         "format": "circuit",
         "rounds": 3,
         "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Do one set of each back to back, then rest 60–90 s." },
         "items": [
-          { "exerciseId": "single_leg_deadlift", "reps": 8, "perSide": true, "note": "8–12 reps per side." },
+          { "exerciseId": "kickstand_deadlift", "reps": 8, "perSide": true, "note": "8–12 reps per side. Back toes on the floor for balance; hips square." },
           { "exerciseId": "push_up", "reps": 10, "perSide": false, "note": "As many as you can with good form; log what you got." }
         ]
       }

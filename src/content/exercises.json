@@ -948,5 +948,33 @@
     "videoUrl": "https://www.youtube.com/watch?v=sVfp4LN9niA",
     "videoTitle": "How To Do A Single Leg Glute Bridge",
     "substitutions": ["hip_bridge"]
+  },
+  {
+    "id": "kickstand_deadlift",
+    "name": "Kickstand deadlift",
+    "category": "hinge",
+    "equipment": ["kettlebell"],
+    "kidSafe": true,
+    "steps": [
+      "Hold the bell in the hand opposite your working leg. Stand on the working leg and set the other foot a short step behind you, heel up, toes lightly on the floor like a kickstand.",
+      "Keep about 80% of your weight on the front leg, with a soft bend in that knee.",
+      "Push your hips straight back and lower the bell along the front leg until you feel a strong hamstring stretch.",
+      "Squeeze the front glute to stand back up tall.",
+      "Finish all reps on one leg, then switch."
+    ],
+    "formCues": [
+      "Back foot is for balance only. Don't push off it.",
+      "Both hip bones point at the floor.",
+      "Bell stays close to the front leg.",
+      "Stop at the hamstring stretch, not at a set depth."
+    ],
+    "commonMistakes": [
+      "Shifting weight onto the back foot, which turns it into a two-leg deadlift.",
+      "Letting the hip of the back leg rotate open.",
+      "Rounding the lower back to reach lower. If you feel it in your back, shorten the range or use a lighter bell."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["single_leg_deadlift", "kb_deadlift"]
   }
 ]
