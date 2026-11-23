@@ -24,7 +24,7 @@ export default function Suggestions({ suggestions, kidMode }: { suggestions: Sug
               <li key={s.unitKey}>{s.message}</li>
             ))}
           </ul>
-          {!kidMode && <p className="mt-2 text-sm opacity-80">You hit every target with RPE ≤ 7 twice in a row. Only progress if form feels solid.</p>}
+          {!kidMode && <p className="mt-2 text-sm opacity-80">Only progress if form feels solid. On a new bell, start with one set and build from there.</p>}
         </div>
       )}
     </>

@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router'
 import Badges from '../components/Badges'
 import Suggestions from '../components/Suggestions'
 import { Button, Card, ErrorBox, inputClass, PageTitle, Pill, Spinner } from '../components/ui'
-import { getWorkout, workoutName, workouts } from '../content'
-import { listSessions, recentWorkoutSessions } from '../lib/api'
+import { getWorkout, isWarmupOnly, workoutName, workouts } from '../content'
+import { listSessions, recentSessionsWithLogs, recentWorkoutSessions } from '../lib/api'
 import { formatDate, today } from '../lib/dates'
-import { suggestProgressions } from '../lib/progression'
+import { bellUpSuggestions, suggestProgressions } from '../lib/progression'
 import { BRIDGE_END_WEEK, INTRO_WEEKS, mondayIndex, PLAN_DAYS } from '../lib/rotation'
 import { missedYesterday, RECOVERY_ID, suggestToday, weeklyStreak, weekStatus, type TodayKind } from '../lib/schedule'
 import { athleteStats } from '../lib/stats'
@@ -64,12 +64,18 @@ function TodayFor() {
     () => (workoutId ? recentWorkoutSessions(athlete.id, workoutId, 2) : Promise.resolve([])),
     [athlete.id, workoutId],
   )
+  const recentAnyQ = useAsync(() => recentSessionsWithLogs(athlete.id), [athlete.id])
   const suggestions = useMemo(
     () =>
-      workout && progressionQ.data
-        ? suggestProgressions({ workout, sessions: progressionQ.data, currentBellLb: athlete.current_bell_lb, availableBellsLb: athlete.available_bells_lb })
+      workout
+        ? [
+            ...(progressionQ.data
+              ? suggestProgressions({ workout, sessions: progressionQ.data, currentBellLb: athlete.current_bell_lb, availableBellsLb: athlete.available_bells_lb })
+              : []),
+            ...(recentAnyQ.data ? bellUpSuggestions({ workout, sessions: recentAnyQ.data, availableBellsLb: athlete.available_bells_lb, isWarmupOnly }) : []),
+          ]
         : [],
-    [workout, progressionQ.data, athlete.current_bell_lb, athlete.available_bells_lb],
+    [workout, progressionQ.data, recentAnyQ.data, athlete.current_bell_lb, athlete.available_bells_lb],
   )
 
   if (sessionsQ.loading && !sessionsQ.data) return <Spinner />

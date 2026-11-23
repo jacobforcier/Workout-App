@@ -135,3 +135,20 @@ export function lastTimeForExercise(
   const text = s ? summarizeExercise(exerciseId, s.set_logs) : null
   return s && text ? { text, performedOn: s.performed_on, workoutId: s.workout_id } : null
 }
+
+/**
+ * Reps and seconds from an earlier session for one set of an exercise (the
+ * weaker side for per-side sets). Uses the last set logged when that session
+ * had fewer sets. Null when the exercise isn't in the logs.
+ */
+export function lastSetValues(exerciseId: string, setNumber: number, logs: LogLike[]): { reps: number | null; seconds: number | null } | null {
+  const mine = logs.filter((l) => l.exercise_id === exerciseId)
+  if (mine.length === 0) return null
+  const n = mine.some((l) => l.set_number === setNumber) ? setNumber : Math.max(...mine.map((l) => l.set_number))
+  const set = mine.filter((l) => l.set_number === n)
+  const low = (vals: (number | null)[]) => {
+    const v = vals.filter((x): x is number => x !== null)
+    return v.length ? Math.min(...v) : null
+  }
+  return { reps: low(set.map((l) => l.reps)), seconds: low(set.map((l) => l.seconds)) }
+}

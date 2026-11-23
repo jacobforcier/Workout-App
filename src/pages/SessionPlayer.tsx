@@ -29,8 +29,8 @@ import {
   type PlanStep,
   type WorkStep,
 } from '../lib/plan'
-import { progressionUnits, restUsed, suggestProgressions, type Suggestion } from '../lib/progression'
-import { lastSessionWithExercise, lastTimeForExercise, personalRecords, summarizeExercise } from '../lib/records'
+import { bellUpSuggestions, progressionUnits, restUsed, suggestProgressions, type Suggestion } from '../lib/progression'
+import { lastSessionWithExercise, lastSetValues, lastTimeForExercise, personalRecords, summarizeExercise } from '../lib/records'
 import { weeklyStreak, weekStatus } from '../lib/schedule'
 import { athleteStats } from '../lib/stats'
 import type { Athlete, SetLogInput } from '../lib/types'
@@ -92,11 +92,13 @@ function Player({ workout, athlete, kidMode }: { workout: Workout; athlete: Athl
   const lastSession = history.data?.[0] ?? null
   const recentAny = useAsync(() => recentSessionsWithLogs(athlete.id), [athlete.id])
   const suggestions = useMemo(
-    () =>
-      history.data
+    () => [
+      ...(history.data
         ? suggestProgressions({ workout, sessions: history.data, currentBellLb: athlete.current_bell_lb, availableBellsLb: athlete.available_bells_lb })
-        : [],
-    [history.data, workout, athlete.current_bell_lb, athlete.available_bells_lb],
+        : []),
+      ...(recentAny.data ? bellUpSuggestions({ workout, sessions: recentAny.data, availableBellsLb: athlete.available_bells_lb, isWarmupOnly }) : []),
+    ],
+    [history.data, recentAny.data, workout, athlete.current_bell_lb, athlete.available_bells_lb],
   )
 
   const [phase, setPhase] = useState<Phase>('ready')
@@ -159,7 +161,16 @@ function Player({ workout, athlete, kidMode }: { workout: Workout; athlete: Athl
       // The bell follows the exercise: the newest session of any workout that used it in the same part (warm-up or main).
       const section = e.id.startsWith('warmup') ? 'warmup' : 'main'
       const ref = (recentAny.data && lastSessionWithExercise(exId, recentAny.data, section, isWarmupOnly)) || lastSession
-      return defaultEntryLog(e, exId, bellForExercise(exId, sessionBell, bellByExercise, ref))
+      const base = defaultEntryLog(e, exId, bellForExercise(exId, sessionBell, bellByExercise, ref))
+      // Main work starts from what was actually done last time (any workout), not the fixed target.
+      // Warm-ups keep their targets: they can't be edited in the player.
+      const last = section === 'main' && ref ? lastSetValues(exId, e.setNumber, ref.set_logs) : null
+      if (!last) return base
+      return {
+        ...base,
+        reps: e.item.reps !== undefined && last.reps !== null ? last.reps : base.reps,
+        seconds: e.item.seconds !== undefined && last.seconds !== null ? last.seconds : base.seconds,
+      }
     },
     [logs, exerciseFor, sessionBell, bellByExercise, lastSession, recentAny.data],
   )
@@ -251,7 +262,11 @@ function Player({ workout, athlete, kidMode }: { workout: Workout; athlete: Athl
   const applySuggestion = (sg: Suggestion) => {
     if (sg.kind === 'add_set' && sg.to) setOverrides((o) => ({ ...o, sets: { ...o.sets, [sg.unitKey]: sg.to! } }))
     if (sg.kind === 'shorten_rest' && sg.to) setOverrides((o) => ({ ...o, rest: { ...o.rest, [sg.unitKey]: sg.to! } }))
-    if ((sg.kind === 'next_bell' || sg.kind === 'step_back') && sg.to) setSessionBell(sg.to)
+    if (sg.kind === 'next_bell' && sg.to && sg.unitKey.startsWith('exercise:')) {
+      const id = sg.unitKey.slice('exercise:'.length)
+      const to = sg.to
+      setBellByExercise((b) => ({ ...b, [id]: to }))
+    } else if ((sg.kind === 'next_bell' || sg.kind === 'step_back') && sg.to) setSessionBell(sg.to)
     setApplied((a) => new Set(a).add(sg.unitKey + sg.kind))
   }
 
@@ -381,7 +396,7 @@ function Player({ workout, athlete, kidMode }: { workout: Workout; athlete: Athl
         )}
 
         <p className="text-sm text-slate-600 dark:text-slate-400">
-          {steps.length} steps. Targets are filled in, so tap <strong>Done</strong> unless something was different.
+          {steps.length} steps. Your last numbers are filled in (targets for anything new), so tap <strong>Done</strong> unless something was different.
         </p>
 
         <Button

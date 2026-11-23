@@ -1,9 +1,10 @@
-import { exerciseName, getExercise, isLoaded, type RestGuidance, type Workout, type WorkoutItem } from '../content'
+import { exerciseName, getExercise, getWorkout, isLoaded, type RestGuidance, type Workout, type WorkoutItem } from '../content'
 
 /**
  * Progression: suggest (never force) an increase when an athlete hits every
  * target rep for a unit with RPE ≤ 7 in two consecutive sessions of the same
- * workout. Order: add a set/round (up to the max) → shorten rest → next bell.
+ * workout. Order: add a set/round (up to the max) → shorten rest → add reps.
+ * Heavier bells are suggested per exercise by bellUpSuggestions.
  *
  * It also suggests stepping back: after two sessions at RPE ≥ 9, or when reps
  * fell short in both of the last two sessions (and the latest felt hard).
@@ -261,20 +262,22 @@ export function suggestProgressions({ workout, sessions, currentBellLb, availabl
       }
     }
 
-    if (unitIsLoaded(unit)) {
+    // Heavier bells are decided per exercise (see bellUpSuggestions). EMOMs have no per-set reps to judge, so they keep the workout-level rule.
+    if (unit.format === 'emom' && unitIsLoaded(unit)) {
       // Only when both sessions were done with the current bell; otherwise the athlete already moved up.
-      if (!recent.every((s) => (s.bell_lb ?? currentBellLb) === currentBellLb)) continue
-      const bell = nextBell(currentBellLb, availableBellsLb)
-      if (bell !== null) {
-        suggestions.push({
-          unitKey: unit.key,
-          label: unit.label,
-          kind: 'next_bell',
-          from: currentBellLb,
-          to: bell,
-          message: `${unit.label}: ready for the ${bell} lb bell (up from ${currentBellLb} lb).`,
-        })
-        continue
+      if (recent.every((s) => (s.bell_lb ?? currentBellLb) === currentBellLb)) {
+        const bell = nextBell(currentBellLb, availableBellsLb)
+        if (bell !== null) {
+          suggestions.push({
+            unitKey: unit.key,
+            label: unit.label,
+            kind: 'next_bell',
+            from: currentBellLb,
+            to: bell,
+            message: `${unit.label}: ready for the ${bell} lb bell (up from ${currentBellLb} lb).`,
+          })
+          continue
+        }
       }
     }
 
@@ -287,4 +290,79 @@ export function suggestProgressions({ workout, sessions, currentBellLb, availabl
   }
 
   return suggestions
+}
+
+/** Reps on every set needed before an exercise moves to the next bell, unless the exercise sets its own. */
+export const DEFAULT_BELL_UP_REPS = 8
+/** Sets at the bell needed before moving up (fewer if the workout prescribes fewer). */
+export const BELL_UP_SETS = 3
+
+export interface BellUpSession {
+  workout_id: string
+  performed_on: string
+  set_logs: (SetLogLike & { weight_lb: number | null })[]
+}
+
+/** Sets or rounds a workout prescribes for an exercise's main work; null if it isn't there. */
+function prescribedSets(workoutId: string, exerciseId: string): number | null {
+  const w = getWorkout(workoutId)
+  if (!w) return null
+  for (const block of w.main) {
+    const item = block.items.find((i) => i.exerciseId === exerciseId)
+    if (!item) continue
+    if (block.format === 'circuit') return block.rounds ?? 1
+    if (block.format === 'sets') return item.sets ?? 1
+    return null
+  }
+  return null
+}
+
+/**
+ * Per-exercise bell progression: an exercise is ready for the next bell once its
+ * most recent main-work session (any workout) had at least 3 sets (or every
+ * prescribed set, if fewer) at its heaviest bell, each with at least the
+ * exercise's bell-up reps (default 8) on the weaker side.
+ * `sessions` must be newest first.
+ */
+export function bellUpSuggestions({
+  workout,
+  sessions,
+  availableBellsLb,
+  isWarmupOnly,
+}: {
+  workout: Workout
+  sessions: BellUpSession[]
+  availableBellsLb: number[]
+  isWarmupOnly: (workoutId: string, exerciseId: string) => boolean
+}): Suggestion[] {
+  const out: Suggestion[] = []
+  const ids = [...new Set(workout.main.flatMap((b) => (b.format === 'emom' ? [] : b.items.filter((i) => i.reps !== undefined && i.unit !== 'steps').map((i) => i.exerciseId))))]
+  for (const id of ids) {
+    if (!isLoaded(id)) continue
+    const s = sessions.find((x) => !isWarmupOnly(x.workout_id, id) && x.set_logs.some((l) => l.exercise_id === id))
+    if (!s) continue
+    const mine = s.set_logs.filter((l) => l.exercise_id === id)
+    const weights = mine.map((l) => Number(l.weight_lb ?? 0))
+    const top = Math.max(...weights)
+    if (!(top > 0)) continue
+    const bell = nextBell(top, availableBellsLb)
+    if (bell === null) continue
+    // Sets done entirely at the top bell, and the weaker side's reps on each.
+    const bySet = new Map<number, typeof mine>()
+    for (const l of mine) bySet.set(l.set_number, [...(bySet.get(l.set_number) ?? []), l])
+    const topSets = [...bySet.values()].filter((ls) => ls.every((l) => Number(l.weight_lb ?? 0) === top))
+    const needSets = Math.min(BELL_UP_SETS, prescribedSets(s.workout_id, id) ?? BELL_UP_SETS)
+    const needReps = getExercise(id)?.bellUpReps ?? DEFAULT_BELL_UP_REPS
+    const reps = topSets.map((ls) => Math.min(...ls.map((l) => l.reps ?? 0)))
+    if (topSets.length < needSets || reps.some((r) => r < needReps)) continue
+    out.push({
+      unitKey: `exercise:${id}`,
+      label: exerciseName(id),
+      kind: 'next_bell',
+      from: top,
+      to: bell,
+      message: `${exerciseName(id)}: ${topSets.length} sets of ${Math.min(...reps)}+ at ${top} lb. Ready to try the ${bell} lb bell.`,
+    })
+  }
+  return out
 }

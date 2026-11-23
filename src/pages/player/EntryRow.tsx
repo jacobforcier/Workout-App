@@ -36,7 +36,7 @@ export default function EntryRow({
 }) {
   const [open, setOpen] = useState(false)
   const { item } = entry
-  const changed = (item.reps !== undefined && log.reps !== item.reps) || (item.seconds !== undefined && log.seconds !== item.seconds)
+  const changed = !!log.edited
   const loaded = isLoaded(exerciseId)
 
   return (

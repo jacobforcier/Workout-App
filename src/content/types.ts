@@ -13,6 +13,8 @@ export interface Exercise {
   /** Title of the linked video, shown next to the link. */
   videoTitle: string | null
   substitutions: string[]
+  /** Reps needed on every set (3 sets) before moving to the next bell. Defaults to 8. */
+  bellUpReps?: number
 }
 
 export interface RestGuidance {

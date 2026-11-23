@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { getWorkout, type Workout } from '../content'
 import {
+  bellUpSuggestions,
   hitAllTargets,
   nextBell,
   progressionUnits,
@@ -154,15 +155,10 @@ describe('suggestProgressions', () => {
     expect(s).toMatchObject({ kind: 'shorten_rest', from: 70, to: 60 })
   })
 
-  it('then suggests the next available bell', () => {
+  it('then suggests more reps (bells are decided per exercise)', () => {
     const sessions = [session('a', '2026-09-01', 6, joeRoganLogs(5, 5, 60)), session('b', '2026-09-03', 7, joeRoganLogs(5, 5, 60))]
     const [s] = suggestProgressions({ workout: joeRogan, sessions, ...base })
-    expect(s).toMatchObject({ kind: 'next_bell', from: 35, to: 44 })
-  })
-
-  it('does not suggest a bell after the athlete already moved up', () => {
-    const sessions = [session('a', '2026-09-01', 6, joeRoganLogs(5, 5, 60)), session('b', '2026-09-03', 6, joeRoganLogs(5, 5, 60))]
-    expect(suggestProgressions({ workout: joeRogan, sessions, currentBellLb: 44, availableBellsLb: [35, 44, 53] })).toEqual([])
+    expect(s.kind).toBe('add_reps')
   })
 
   it('suggests more reps when there is no heavier bell', () => {
@@ -193,15 +189,14 @@ describe('suggestProgressions', () => {
     expect(s).toMatchObject({ kind: 'next_bell', to: 44 })
   })
 
-  it('suggests the next bell for the podcast version (fixed sets, full rest)', () => {
+  it('leaves bells to bellUpSuggestions for the podcast version (fixed sets, full rest)', () => {
     const logs: SetLogLike[] = []
     for (const id of ['one_arm_swing', 'kb_clean_and_press', 'windmill', 'renegade_row']) {
       for (let s = 1; s <= 3; s++) logs.push(log(id, s, 10, 'left'), log(id, s, 10, 'right', 120))
     }
     const sessions = [session('a', '2026-09-01', 6, logs), session('b', '2026-09-03', 7, logs)]
     const suggestions = suggestProgressions({ workout: joePodcast, sessions, ...base })
-    expect(suggestions).toHaveLength(4)
-    expect(suggestions.every((s) => s.kind === 'next_bell' && s.to === 44)).toBe(true)
+    expect(suggestions.some((s) => s.kind === 'next_bell')).toBe(false)
   })
 
   it('steps back to a lighter bell after two very hard sessions', () => {
@@ -237,5 +232,40 @@ describe('suggestProgressions', () => {
     expect(suggestProgressions({ workout: joeRogan, sessions: hard, ...base })[0]).toMatchObject({ kind: 'step_back', unitKey: 'workout' })
     const easy = [session('a', '2026-09-01', 6, joeRoganLogs(3)), { ...partial, rpe: 6 }]
     expect(suggestProgressions({ workout: joeRogan, sessions: easy, ...base })).toEqual([])
+  })
+})
+
+describe('bellUpSuggestions', () => {
+  const strengthA = getWorkout('strength_a') as Workout
+  const never = () => false
+  const set = (exercise_id: string, set_number: number, reps: number, weight_lb: number, side: SetLogLike['side'] = 'both') => ({
+    exercise_id,
+    set_number,
+    reps,
+    weight_lb,
+    seconds: null,
+    side,
+    rest_sec: null,
+  })
+  const rowSets = (reps: number[], weight = 35) => reps.flatMap((r, i) => [set('single_arm_row', i + 1, r, weight, 'left'), set('single_arm_row', i + 1, r, weight, 'right')])
+
+  it('suggests the next bell after 3 sets of 8 at the current bell, from any workout', () => {
+    const sessions = [{ workout_id: 'strength_b', performed_on: '2026-11-18', set_logs: rowSets([8, 9, 8]) }]
+    const out = bellUpSuggestions({ workout: strengthA, sessions, availableBellsLb: [35, 53], isWarmupOnly: never })
+    expect(out.find((s) => s.unitKey === 'exercise:single_arm_row')).toMatchObject({ kind: 'next_bell', from: 35, to: 53 })
+  })
+  it('waits while any set is under 8 or fewer than 3 sets were at the bell', () => {
+    const short = [{ workout_id: 'strength_b', performed_on: '2026-11-18', set_logs: rowSets([8, 7, 8]) }]
+    const mixed = [{ workout_id: 'strength_b', performed_on: '2026-11-18', set_logs: [...rowSets([8], 53), ...rowSets([12, 12, 12]).filter((l) => l.set_number > 1)] }]
+    for (const sessions of [short, mixed]) {
+      expect(bellUpSuggestions({ workout: strengthA, sessions, availableBellsLb: [35, 53], isWarmupOnly: never }).some((s) => s.unitKey === 'exercise:single_arm_row')).toBe(false)
+    }
+  })
+  it('needs 12 reps on the press', () => {
+    const press = (r: number) => [1, 2, 3].flatMap((n) => [set('single_arm_press', n, r, 35, 'left'), set('single_arm_press', n, r, 35, 'right')])
+    const at = (r: number) =>
+      bellUpSuggestions({ workout: strengthA, sessions: [{ workout_id: 'strength_a', performed_on: '2026-11-23', set_logs: press(r) }], availableBellsLb: [35, 53], isWarmupOnly: never })
+    expect(at(8).some((s) => s.unitKey === 'exercise:single_arm_press')).toBe(false)
+    expect(at(12).some((s) => s.unitKey === 'exercise:single_arm_press')).toBe(true)
   })
 })
