@@ -30,7 +30,7 @@ import {
   type WorkStep,
 } from '../lib/plan'
 import { progressionUnits, restUsed, suggestProgressions, type Suggestion } from '../lib/progression'
-import { lastTimeForExercise, personalRecords, summarizeExercise } from '../lib/records'
+import { lastSessionWithExercise, lastTimeForExercise, personalRecords, summarizeExercise } from '../lib/records'
 import { weeklyStreak, weekStatus } from '../lib/schedule'
 import { athleteStats } from '../lib/stats'
 import type { Athlete, SetLogInput } from '../lib/types'
@@ -156,9 +156,12 @@ function Player({ workout, athlete, kidMode }: { workout: Workout; athlete: Athl
     (e: Entry): EntryLog => {
       if (logs[e.id]) return logs[e.id]
       const exId = exerciseFor(e.itemKey, e.item.exerciseId)
-      return defaultEntryLog(e, exId, bellForExercise(exId, sessionBell, bellByExercise, lastSession))
+      // The bell follows the exercise: the newest session of any workout that used it in the same part (warm-up or main).
+      const section = e.id.startsWith('warmup') ? 'warmup' : 'main'
+      const ref = (recentAny.data && lastSessionWithExercise(exId, recentAny.data, section, isWarmupOnly)) || lastSession
+      return defaultEntryLog(e, exId, bellForExercise(exId, sessionBell, bellByExercise, ref))
     },
-    [logs, exerciseFor, sessionBell, bellByExercise, lastSession],
+    [logs, exerciseFor, sessionBell, bellByExercise, lastSession, recentAny.data],
   )
   const updateEntry = (e: Entry, patch: Partial<EntryLog>) => {
     if (patch.weight !== undefined && patch.weight !== null) {

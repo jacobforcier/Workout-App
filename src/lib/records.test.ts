@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { lastTimeForExercise, personalRecords, summarizeExercise, type LogLike } from './records'
+import { lastSessionWithExercise, lastTimeForExercise, personalRecords, summarizeExercise, type LogLike } from './records'
 
 const l = (exercise_id: string, set_number: number, reps: number | null, weight_lb: number | null = 35, side: LogLike['side'] = 'both', seconds: number | null = null): LogLike => ({
   exercise_id,
@@ -67,5 +67,21 @@ describe('lastTimeForExercise', () => {
   })
   it('returns null when never done', () => {
     expect(lastTimeForExercise('windmill', sessions, warmupOnly)).toBeNull()
+  })
+})
+
+describe('lastSessionWithExercise', () => {
+  const warmupOnly = (w: string, ex: string) => w === 'strength_a' && ex === 'halo'
+  const sessions = [
+    { workout_id: 'strength_a', performed_on: '2026-11-23', rpe: 7, set_logs: [l('halo', 1, 10, 35), l('single_arm_row', 1, 13, 53)] },
+    { workout_id: 'strength_c', performed_on: '2026-11-20', rpe: 7, set_logs: [l('halo', 1, 10, 53)] },
+  ]
+  it('finds the newest main-work use across workouts', () => {
+    expect(lastSessionWithExercise('single_arm_row', sessions, 'main', warmupOnly)?.performed_on).toBe('2026-11-23')
+    expect(lastSessionWithExercise('halo', sessions, 'main', warmupOnly)?.performed_on).toBe('2026-11-20')
+  })
+  it('keeps warm-up and main uses apart', () => {
+    expect(lastSessionWithExercise('halo', sessions, 'warmup', warmupOnly)?.performed_on).toBe('2026-11-23')
+    expect(lastSessionWithExercise('single_arm_row', sessions, 'warmup', warmupOnly)).toBeNull()
   })
 })
