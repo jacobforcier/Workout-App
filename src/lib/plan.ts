@@ -240,6 +240,8 @@ export interface EntryLog {
   /** Rest (s) taken after this entry; recorded on the last entry of a step. */
   rest: number | null
   done: boolean
+  /** True once the athlete changed reps, weight or seconds (false = the pre-filled values). */
+  edited?: boolean
 }
 
 /** Pre-filled log: the target reps/seconds and the session bell for loaded exercises. */
@@ -278,6 +280,7 @@ export function defaultEntryLog(e: Entry, exerciseId: string, bell: number): Ent
     seconds: e.item.seconds ?? null,
     rest: null,
     done: false,
+    edited: false,
   }
 }
 
@@ -309,6 +312,7 @@ export function buildSetLogs(steps: PlanStep[], ctx: LogContext): SetLogInput[] 
           seconds: null,
           side: 'both',
           rest_sec: null,
+          edited: ctx.emomReps[step.id] !== undefined,
         }),
       )
       continue
@@ -325,6 +329,7 @@ export function buildSetLogs(steps: PlanStep[], ctx: LogContext): SetLogInput[] 
         weight_lb: l.weight,
         seconds: e.item.seconds !== undefined ? l.seconds : null,
         rest_sec: l.rest,
+        edited: l.edited ?? false,
       }
       if (e.side === 'each') {
         out.push({ ...row, side: 'left', rest_sec: null }, { ...row, side: 'right' })

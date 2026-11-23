@@ -95,6 +95,21 @@ describe('buildSetLogs', () => {
     }
   })
 
+  it('marks sets saved at their defaults as not edited, and changed ones as edited', () => {
+    const steps = buildPlan(w('foundation'))
+    const main = steps.find((s) => s.kind === 'round')!
+    const [first, second] = stepEntries(main)
+    const logs: Record<string, EntryLog> = {
+      [first.id]: { ...defaultEntryLog(first, first.item.exerciseId, 35), done: true },
+      [second.id]: { ...defaultEntryLog(second, second.item.exerciseId, 35), reps: 12, done: true, edited: true },
+    }
+    const rows = buildSetLogs(steps, { logs, exerciseFor: (key) => keyToExercise(steps, key), bell: 35, emomReps: {}, emomReached: {} })
+    expect(rows.map((r) => [r.exercise_id, r.edited])).toEqual([
+      [first.item.exerciseId, false],
+      [second.item.exerciseId, true],
+    ])
+  })
+
   it('skips steps not marked done', () => {
     const steps = buildPlan(w('foundation'))
     expect(buildSetLogs(steps, { logs: {}, exerciseFor: () => 'x', bell: 35, emomReps: {}, emomReached: {} })).toEqual([])

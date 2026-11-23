@@ -64,6 +64,8 @@ export interface SetLog {
   seconds: number | null
   side: Side
   rest_sec: number | null
+  /** True when the athlete changed the pre-filled numbers; null on sets saved before this was tracked. */
+  edited: boolean | null
 }
 
 export type SetLogInput = Omit<SetLog, 'id' | 'session_id'>

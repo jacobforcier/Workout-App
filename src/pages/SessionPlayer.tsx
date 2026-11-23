@@ -169,7 +169,8 @@ function Player({ workout, athlete, kidMode }: { workout: Workout; athlete: Athl
       const w = patch.weight
       setBellByExercise((b) => ({ ...b, [exId]: w }))
     }
-    setLogs((l) => ({ ...l, [e.id]: { ...logFor(e), ...patch } }))
+    const touched = patch.reps !== undefined || patch.weight !== undefined || patch.seconds !== undefined
+    setLogs((l) => ({ ...l, [e.id]: { ...logFor(e), ...patch, ...(touched ? { edited: true } : {}) } }))
   }
 
   // "Last time" follows the exercise, not the workout: the most recent working sets from any workout.
@@ -211,7 +212,8 @@ function Player({ workout, athlete, kidMode }: { workout: Workout; athlete: Athl
       const entries = stepEntries(s)
       const restAfter = s.kind === 'work' || s.kind === 'round' ? s.restAfter : null
       entries.forEach((e, i) => {
-        const base = values ? { ...logFor(e), reps: values.reps, weight: values.weight, seconds: values.seconds } : logFor(e)
+        // "All remaining sets done" copies this set's numbers; they count as edited if this set was.
+        const base = values ? { ...logFor(e), reps: values.reps, weight: values.weight, seconds: values.seconds, edited: values.edited ?? false } : logFor(e)
         const isLast = i === entries.length - 1
         patch[e.id] = { ...base, done: true, rest: isLast ? restAfter : base.rest }
         if (isLast) lastRest = { entryId: e.id, restAfter, unitKey: s.unitKey }
