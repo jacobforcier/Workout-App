@@ -110,6 +110,12 @@ export async function updateAthlete(id: string, input: Partial<AthleteInput>, cl
   return run(() => supabase.from('athletes').update(payload).eq('id', id).select().single())
 }
 
+/** Make this profile the signed-in person's own (and unlink any other profile of theirs in the household). */
+export async function linkAthleteToUser(athlete: Athlete, userId: string): Promise<void> {
+  await run(() => supabase.from('athletes').update({ user_id: null }).eq('household_id', athlete.household_id).eq('user_id', userId).select())
+  await run(() => supabase.from('athletes').update({ user_id: userId }).eq('id', athlete.id).select().single())
+}
+
 export async function deleteAthlete(id: string): Promise<void> {
   await run(() => supabase.from('athletes').delete().eq('id', id))
 }

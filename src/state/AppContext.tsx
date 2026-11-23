@@ -95,7 +95,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     void reloadAthletes()
   }, [reloadAthletes])
 
-  const activeAthlete = athletes.find((a) => a.id === activeAthleteId) ?? athletes[0] ?? null
+  // Picked profile first; otherwise the signed-in person's own profile; otherwise the first one.
+  const activeAthlete =
+    athletes.find((a) => a.id === activeAthleteId) ?? athletes.find((a) => userId !== null && a.user_id === userId) ?? athletes[0] ?? null
 
   const value = useMemo<AppState>(
     () => ({

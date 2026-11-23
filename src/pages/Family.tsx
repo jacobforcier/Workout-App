@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Button, Card, ErrorBox, Field, inputClass, PageTitle, Pill, Spinner, Toggle } from '../components/ui'
 import { useAsync } from '../hooks/useAsync'
-import { createAthlete, createInvite, deleteAthlete, deleteInvite, listInvites, listMembers, updateAthlete } from '../lib/api'
+import { createAthlete, createInvite, deleteAthlete, deleteInvite, linkAthleteToUser, listInvites, listMembers, updateAthlete } from '../lib/api'
 import { getWorkout, workouts } from '../content'
 import { defaultWeeklyPlan, PLAN_DAYS } from '../lib/rotation'
 import type { Athlete, AthleteInput } from '../lib/types'
@@ -98,7 +98,21 @@ export default function Family() {
                   {a.has_pullup_bar && <Pill tone="blue">Pull-up bar</Pill>}
                   {a.has_dip_bars && <Pill tone="blue">Dip bars</Pill>}
                   {a.custom_rotation && <Pill tone="brand">Own weekly plan</Pill>}
+                  {a.user_id && a.user_id === session?.user.id && <Pill tone="green">You</Pill>}
+                  {a.user_id && a.user_id !== session?.user.id && <Pill>Own login</Pill>}
                 </div>
+                {!kidMode && a.kind === 'adult' && !a.user_id && session && !athletes.some((x) => x.user_id === session.user.id) && (
+                  <button
+                    type="button"
+                    className="mt-2 font-semibold text-brand-700 underline dark:text-brand-500"
+                    onClick={async () => {
+                      await linkAthleteToUser(a, session.user.id)
+                      await reloadAthletes()
+                    }}
+                  >
+                    This is me
+                  </button>
+                )}
               </div>
               {!kidMode && (
                 <Button variant="secondary" onClick={() => setEditing(a.id)}>

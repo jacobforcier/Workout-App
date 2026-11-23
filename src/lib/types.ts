@@ -33,10 +33,12 @@ export interface Athlete {
   has_dip_bars: boolean
   /** Monday-first weekly plan (workout id or null = rest). null = default rotation. */
   custom_rotation: (string | null)[] | null
+  /** The login this profile belongs to; null for kids and anyone without a login. */
+  user_id: string | null
   created_at: string
 }
 
-export type AthleteInput = Omit<Athlete, 'id' | 'household_id' | 'created_at'>
+export type AthleteInput = Omit<Athlete, 'id' | 'household_id' | 'created_at' | 'user_id'>
 
 export interface SessionRow {
   id: string
