@@ -26,6 +26,17 @@ export function exerciseName(id: string): string {
   return exerciseById.get(id)?.name ?? id
 }
 
+/**
+ * True when a workout only uses this exercise in its warm-up (not in the main
+ * part). Unknown workouts and substituted exercises count as main work.
+ */
+export function isWarmupOnly(workoutId: string, exerciseId: string): boolean {
+  const w = workoutById.get(workoutId)
+  if (!w) return false
+  const inBlocks = (blocks: Workout['warmup']) => blocks.some((b) => b.items.some((i) => i.exerciseId === exerciseId))
+  return inBlocks(w.warmup) && !inBlocks(w.main)
+}
+
 /** Exercises that use a kettlebell take a weight; the rest are bodyweight. */
 export function isLoaded(exerciseId: string): boolean {
   return exerciseById.get(exerciseId)?.equipment.includes('kettlebell') ?? false

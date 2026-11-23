@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { personalRecords, summarizeExercise, type LogLike } from './records'
+import { lastTimeForExercise, personalRecords, summarizeExercise, type LogLike } from './records'
 
 const l = (exercise_id: string, set_number: number, reps: number | null, weight_lb: number | null = 35, side: LogLike['side'] = 'both', seconds: number | null = null): LogLike => ({
   exercise_id,
@@ -49,5 +49,23 @@ describe('personalRecords', () => {
   })
   it('does not count more reps with a lighter bell', () => {
     expect(personalRecords([l('swing', 1, 20, 26)], history, name)).toEqual([])
+  })
+})
+
+describe('lastTimeForExercise', () => {
+  const warmupOnly = (w: string, ex: string) => w === 'strength_a' && ex === 'halo'
+  const sessions = [
+    { workout_id: 'foundation', performed_on: '2026-11-21', rpe: 5, set_logs: [l('single_arm_row', 1, 10, 53, 'left'), l('single_arm_row', 1, 10, 53, 'right')] },
+    { workout_id: 'strength_a', performed_on: '2026-11-20', rpe: 7, set_logs: [l('halo', 1, 10, 35)] },
+    { workout_id: 'strength_c', performed_on: '2026-11-19', rpe: 7, set_logs: [l('single_arm_row', 1, 8, 53), l('halo', 1, 10, 53)] },
+  ]
+  it('uses the most recent session of any workout', () => {
+    expect(lastTimeForExercise('single_arm_row', sessions, warmupOnly)).toEqual({ text: '10/side @ 53 lb', performedOn: '2026-11-21', workoutId: 'foundation' })
+  })
+  it('skips sessions where the exercise was only a warm-up', () => {
+    expect(lastTimeForExercise('halo', sessions, warmupOnly)).toMatchObject({ performedOn: '2026-11-19', workoutId: 'strength_c' })
+  })
+  it('returns null when never done', () => {
+    expect(lastTimeForExercise('windmill', sessions, warmupOnly)).toBeNull()
   })
 })

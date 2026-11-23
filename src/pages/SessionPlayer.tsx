@@ -4,11 +4,11 @@ import Badges from '../components/Badges'
 import Suggestions from '../components/Suggestions'
 import VideoLink from '../components/VideoLink'
 import { Button, Card, ErrorBox, PageTitle, Pill, Spinner, Stepper, SuperviseBanner } from '../components/ui'
-import { exerciseName, getWorkout, isLoaded, type Workout } from '../content'
+import { exerciseName, getWorkout, isLoaded, isWarmupOnly, workoutName, type Workout } from '../content'
 import { useAsync } from '../hooks/useAsync'
 import { useNow } from '../hooks/useNow'
 import { useWakeLock } from '../hooks/useWakeLock'
-import { listSessions, listSessionsWithLogs, recentWorkoutSessions, saveSession, updateAthlete } from '../lib/api'
+import { listSessions, listSessionsWithLogs, recentSessionsWithLogs, recentWorkoutSessions, saveSession, updateAthlete } from '../lib/api'
 import { unlockAudio } from '../lib/beep'
 import { formatDate, formatDuration, today } from '../lib/dates'
 import {
@@ -30,7 +30,7 @@ import {
   type WorkStep,
 } from '../lib/plan'
 import { progressionUnits, restUsed, suggestProgressions, type Suggestion } from '../lib/progression'
-import { personalRecords, summarizeExercise } from '../lib/records'
+import { lastTimeForExercise, personalRecords, summarizeExercise } from '../lib/records'
 import { weeklyStreak, weekStatus } from '../lib/schedule'
 import { athleteStats } from '../lib/stats'
 import type { Athlete, SetLogInput } from '../lib/types'
@@ -90,6 +90,7 @@ function Player({ workout, athlete, kidMode }: { workout: Workout; athlete: Athl
 
   const history = useAsync(() => recentWorkoutSessions(athlete.id, workout.id, 2), [athlete.id, workout.id])
   const lastSession = history.data?.[0] ?? null
+  const recentAny = useAsync(() => recentSessionsWithLogs(athlete.id), [athlete.id])
   const suggestions = useMemo(
     () =>
       history.data
@@ -168,7 +169,13 @@ function Player({ workout, athlete, kidMode }: { workout: Workout; athlete: Athl
     setLogs((l) => ({ ...l, [e.id]: { ...logFor(e), ...patch } }))
   }
 
-  const lastTimeFor = (exerciseId: string) => (lastSession ? summarizeExercise(exerciseId, lastSession.set_logs) : null)
+  // "Last time" follows the exercise, not the workout: the most recent working sets from any workout.
+  const lastTimeFor = (exerciseId: string): string | null => {
+    const found = recentAny.data ? lastTimeForExercise(exerciseId, recentAny.data, isWarmupOnly) : null
+    if (!found) return lastSession ? summarizeExercise(exerciseId, lastSession.set_logs) : null
+    const source = found.workoutId === workout.id ? '' : `, ${workoutName(found.workoutId)}`
+    return `${found.text} · ${formatDate(found.performedOn, { weekday: 'short', month: 'short', day: 'numeric' })}${source}`
+  }
 
   const repsForEmom = (s: EmomStep) => emomReps[s.id] ?? Array.from({ length: s.minutes }, () => s.item.reps ?? 0)
 

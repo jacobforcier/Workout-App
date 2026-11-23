@@ -90,3 +90,33 @@ export function personalRecords(current: LogLike[], history: SessionLogsLike[], 
   }
   return out
 }
+
+export interface SessionForLastTime extends SessionLogsLike {
+  workout_id: string
+}
+
+export interface LastTimeInfo {
+  /** e.g. "3 × 8/side @ 53 lb" */
+  text: string
+  performedOn: string
+  workoutId: string
+}
+
+/**
+ * The most recent working sets of an exercise from any workout, not just the
+ * one being done. `sessions` must be newest first. Sessions where the exercise
+ * was only a warm-up are skipped (`isWarmupOnly`), so a warm-up never becomes
+ * the reference for working sets.
+ */
+export function lastTimeForExercise(
+  exerciseId: string,
+  sessions: SessionForLastTime[],
+  isWarmupOnly: (workoutId: string, exerciseId: string) => boolean,
+): LastTimeInfo | null {
+  for (const s of sessions) {
+    if (isWarmupOnly(s.workout_id, exerciseId)) continue
+    const text = summarizeExercise(exerciseId, s.set_logs)
+    if (text) return { text, performedOn: s.performed_on, workoutId: s.workout_id }
+  }
+  return null
+}

@@ -149,6 +149,19 @@ export async function recentWorkoutSessions(athleteId: string, workoutId: string
   )
 }
 
+/** The athlete's most recent sessions of any workout (partial ones included), with set logs, newest first. */
+export async function recentSessionsWithLogs(athleteId: string, limit = 40): Promise<SessionWithLogs[]> {
+  return run(() =>
+    supabase
+      .from('sessions')
+      .select('*, set_logs(*)')
+      .eq('athlete_id', athleteId)
+      .order('performed_on', { ascending: false })
+      .order('started_at', { ascending: false })
+      .limit(limit),
+  )
+}
+
 export type NewSession = Omit<SessionRow, 'id'>
 
 /** Saves a finished session and its set logs. If the logs fail, the session row is removed again. */
