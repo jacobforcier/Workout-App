@@ -494,6 +494,18 @@
           { "exerciseId": "kickstand_deadlift", "reps": 8, "perSide": true, "note": "8–12 reps per side. Back toes on the floor for balance; hips square." },
           { "exerciseId": "push_up", "reps": 10, "perSide": false, "note": "As many as you can with good form; log what you got." }
         ]
+      },
+      {
+        "title": "Chin-up work",
+        "format": "circuit",
+        "rounds": 3,
+        "requires": "pullup_bar",
+        "restBetweenRounds": { "seconds": 90, "guidance": "Rest about 90 s between rounds. Grip is the limit; stop a set before you drop off the bar." },
+        "items": [
+          { "exerciseId": "chin_up_negative", "reps": 3, "perSide": false, "note": "Lower over about 5 seconds. Build to 5 reps, then 8-second lowers." },
+          { "exerciseId": "scap_pull", "reps": 8, "perSide": false },
+          { "exerciseId": "dead_hang", "seconds": 20, "perSide": false, "note": "Work up to 30 s, then 60 s." }
+        ]
       }
     ]
   },
@@ -557,6 +569,18 @@
         "items": [
           { "exerciseId": "suitcase_carry", "sets": 2, "reps": 40, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "About 40 steps per side.", "unit": "steps" }
         ]
+      },
+      {
+        "title": "Chin-up work",
+        "format": "circuit",
+        "rounds": 3,
+        "requires": "pullup_bar",
+        "restBetweenRounds": { "seconds": 90, "guidance": "Rest about 90 s between rounds. Grip is the limit; stop a set before you drop off the bar." },
+        "items": [
+          { "exerciseId": "chin_up_negative", "reps": 3, "perSide": false, "note": "Lower over about 5 seconds. Build to 5 reps, then 8-second lowers." },
+          { "exerciseId": "scap_pull", "reps": 8, "perSide": false },
+          { "exerciseId": "dead_hang", "seconds": 20, "perSide": false, "note": "Work up to 30 s, then 60 s." }
+        ]
       }
     ]
   },
@@ -619,6 +643,18 @@
         "format": "sets",
         "items": [
           { "exerciseId": "windmill", "sets": 2, "reps": 5, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "5 reps per side. Slow and controlled." }
+        ]
+      },
+      {
+        "title": "Chin-up work",
+        "format": "circuit",
+        "rounds": 3,
+        "requires": "pullup_bar",
+        "restBetweenRounds": { "seconds": 90, "guidance": "Rest about 90 s between rounds. Grip is the limit; stop a set before you drop off the bar." },
+        "items": [
+          { "exerciseId": "chin_up_negative", "reps": 3, "perSide": false, "note": "Lower over about 5 seconds. Build to 5 reps, then 8-second lowers." },
+          { "exerciseId": "scap_pull", "reps": 8, "perSide": false },
+          { "exerciseId": "dead_hang", "seconds": 20, "perSide": false, "note": "Work up to 30 s, then 60 s." }
         ]
       }
     ]

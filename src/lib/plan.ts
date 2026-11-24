@@ -92,7 +92,7 @@ function entry(prefix: string, i: number, item: WorkoutItem, setNumber: number, 
   return { id: `${prefix}-${i}-${setNumber}-${s.side}`, itemKey: `${prefix}-${i}`, item, setNumber, ...s }
 }
 
-export function buildPlan(workout: Workout, overrides: PlanOverrides = emptyOverrides()): PlanStep[] {
+export function buildPlan(workout: Workout, overrides: PlanOverrides = emptyOverrides(), equipment?: EquipmentProfile): PlanStep[] {
   const steps: PlanStep[] = []
 
   // Warm-up: one checklist covering every warm-up block.
@@ -112,6 +112,8 @@ export function buildPlan(workout: Workout, overrides: PlanOverrides = emptyOver
   }
 
   workout.main.forEach((block, b) => {
+    // Blocks that need equipment the athlete doesn't have are left out (indexes stay stable).
+    if (block.requires && equipment && !hasEquipment([block.requires], equipment)) return
     const prefix = `main-${b}`
     if (block.format === 'emom') {
       steps.push({

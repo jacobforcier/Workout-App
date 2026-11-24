@@ -271,7 +271,7 @@
     ],
     "videoUrl": null,
     "videoTitle": null,
-    "substitutions": ["single_arm_row"]
+    "substitutions": []
   },
   {
     "id": "dip",
@@ -819,16 +819,16 @@
   },
   {
     "id": "table_row",
-    "name": "Table row",
+    "name": "Inverted row (rings or table)",
     "category": "pull",
     "equipment": [],
     "kidSafe": false,
     "steps": [
-      "Lie on your back under a sturdy table and grab the edge with both hands, shoulder-width apart.",
-      "Straighten your body into a plank, heels on the floor.",
-      "Pull your chest up to the table edge, squeezing your shoulder blades together.",
+      "Rings: set them about waist height. Table: lie under a sturdy table and grab the edge.",
+      "Hold with both hands, shoulder-width apart, and straighten your body into a plank, heels on the floor.",
+      "Pull your chest up to your hands, squeezing your shoulder blades together.",
       "Lower slowly until your arms are straight.",
-      "Make it easier by bending your knees; harder by raising your feet."
+      "Easier: walk your feet back so you're more upright, or bend your knees. Harder: walk your feet forward or raise them."
     ],
     "formCues": [
       "Body stays one straight line.",
@@ -978,5 +978,56 @@
     "videoUrl": null,
     "videoTitle": null,
     "substitutions": ["single_leg_deadlift", "kb_deadlift"]
+  },
+  {
+    "id": "chin_up_negative",
+    "name": "Chin-up negative",
+    "category": "pull",
+    "equipment": ["pullup_bar"],
+    "kidSafe": false,
+    "steps": [
+      "Grip the bar with palms facing you, hands shoulder-width apart.",
+      "Jump or step up so your chin is over the bar.",
+      "Lower yourself slowly, taking about 5 seconds, until your arms are straight.",
+      "Step down, reset, and repeat."
+    ],
+    "formCues": [
+      "Shoulders down, chest up at the top.",
+      "Fight the bar the whole way down.",
+      "Count a slow five."
+    ],
+    "commonMistakes": [
+      "Dropping fast through the bottom half.",
+      "Swinging or kicking to get up.",
+      "Stopping short of straight arms."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": []
+  },
+  {
+    "id": "scap_pull",
+    "name": "Scap pull",
+    "category": "pull",
+    "equipment": ["pullup_bar"],
+    "kidSafe": false,
+    "steps": [
+      "Hang from the bar with straight arms.",
+      "Without bending your elbows, pull your shoulders down away from your ears so your body rises an inch or two.",
+      "Pause for a second, then lower back to a full hang under control."
+    ],
+    "formCues": [
+      "Arms stay straight.",
+      "Shoulders down and back.",
+      "Small, controlled movement."
+    ],
+    "commonMistakes": [
+      "Bending the elbows.",
+      "Swinging.",
+      "Shrugging up instead of pulling down."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": []
   }
 ]

@@ -32,6 +32,14 @@ function keyToExercise(steps: PlanStep[], itemKey: string): string {
   throw new Error(itemKey)
 }
 
+describe('buildPlan: equipment blocks', () => {
+  it('leaves out blocks that need equipment the athlete lacks', () => {
+    const titles = (bar: boolean) => buildPlan(w('strength_a'), undefined, { has_pullup_bar: bar, has_dip_bars: false }).map((s) => s.blockTitle)
+    expect(titles(true)).toContain('Chin-up work')
+    expect(titles(false)).not.toContain('Chin-up work')
+  })
+})
+
 describe('buildPlan: taps per session', () => {
   it('uses one step for the warm-up and one per circuit round', () => {
     const steps = buildPlan(w('foundation'))

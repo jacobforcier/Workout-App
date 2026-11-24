@@ -57,6 +57,8 @@ export interface WorkoutBlock {
   restBetweenRounds?: RestGuidance
   /** EMOM duration. */
   minutes?: number
+  /** Equipment the whole block needs; the block is left out for athletes without it. */
+  requires?: Equipment
   items: WorkoutItem[]
 }
 

@@ -132,7 +132,7 @@ function Player({ workout, athlete, kidMode }: { workout: Workout; athlete: Athl
     setOverrides((o) => ({ ...o, rest: { ...rests, ...o.rest } }))
   }, [lastSession, workout])
 
-  const steps = useMemo(() => buildPlan(workout, overrides), [workout, overrides])
+  const steps = useMemo(() => buildPlan(workout, overrides, athlete), [workout, overrides, athlete])
   const safeIndex = Math.min(index, steps.length - 1)
   const step = steps[safeIndex]
 
