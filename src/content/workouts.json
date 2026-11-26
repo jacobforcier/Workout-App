@@ -476,6 +476,14 @@
         ]
       },
       {
+        "title": "Ring face pulls",
+        "format": "sets",
+        "requires": "pullup_bar",
+        "items": [
+          { "exerciseId": "ring_face_pull", "sets": 2, "reps": 15, "perSide": false, "rest": { "seconds": 60, "guidance": "Rest about a minute." }, "note": "Light and slow. Squeeze your shoulder blades for a second at the end of each rep." }
+        ]
+      },
+      {
         "title": "Pair 1: goblet squat + row",
         "format": "circuit",
         "rounds": 3,
@@ -564,6 +572,14 @@
         ]
       },
       {
+        "title": "Hanging knee raises",
+        "format": "sets",
+        "requires": "pullup_bar",
+        "items": [
+          { "exerciseId": "hanging_knee_raise", "sets": 2, "reps": 8, "perSide": false, "rest": { "seconds": 60, "guidance": "Rest about a minute." }, "note": "8–10 reps, no swinging. If your grip or calluses are the limit, swap to dead bugs." }
+        ]
+      },
+      {
         "title": "Suitcase carry",
         "format": "sets",
         "items": [
@@ -616,6 +632,14 @@
         "format": "sets",
         "items": [
           { "exerciseId": "single_arm_press", "sets": 3, "reps": 5, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "5–8 reps per side. 3 seconds lowering." }
+        ]
+      },
+      {
+        "title": "Ring face pulls",
+        "format": "sets",
+        "requires": "pullup_bar",
+        "items": [
+          { "exerciseId": "ring_face_pull", "sets": 2, "reps": 15, "perSide": false, "rest": { "seconds": 60, "guidance": "Rest about a minute." }, "note": "Light and slow. Squeeze your shoulder blades for a second at the end of each rep." }
         ]
       },
       {

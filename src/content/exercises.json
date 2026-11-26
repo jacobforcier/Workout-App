@@ -1029,5 +1029,82 @@
     "videoUrl": null,
     "videoTitle": null,
     "substitutions": []
+  },
+  {
+    "id": "ring_face_pull",
+    "name": "Ring face pull",
+    "category": "pull",
+    "equipment": ["pullup_bar"],
+    "kidSafe": false,
+    "steps": [
+      "Set the rings about chest height. Hold one in each hand, palms facing down, and walk your feet forward so you lean back slightly with straight arms.",
+      "Keeping your body in one straight line, pull the rings toward your face, elbows high and wide.",
+      "At the end, squeeze your shoulder blades together and turn your hands so your knuckles point back, and hold for a second.",
+      "Lower slowly back to straight arms."
+    ],
+    "formCues": [
+      "Elbows high, level with your shoulders.",
+      "Pull to your face, not your chest.",
+      "Slow and controlled; this is not a heavy lift."
+    ],
+    "commonMistakes": [
+      "Shrugging the shoulders up.",
+      "Leaning back so far that it turns into a row.",
+      "Rushing the lowering."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": []
+  },
+  {
+    "id": "hanging_knee_raise",
+    "name": "Hanging knee raise",
+    "category": "core",
+    "equipment": ["pullup_bar"],
+    "kidSafe": false,
+    "steps": [
+      "Hang from the bar with straight arms and shoulders pulled slightly down.",
+      "Without swinging, bring your knees up to hip height or higher, curling your hips up at the top.",
+      "Pause for a second, then lower your legs slowly to a still hang."
+    ],
+    "formCues": [
+      "No swinging. Reset if you start to sway.",
+      "Curl the hips, not just the knees.",
+      "Lower slower than you lift."
+    ],
+    "commonMistakes": [
+      "Using momentum from a swing.",
+      "Only lifting the knees without curling the pelvis.",
+      "Dropping the legs fast."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": ["dead_bug"]
+  },
+  {
+    "id": "dead_bug",
+    "name": "Dead bug",
+    "category": "core",
+    "equipment": [],
+    "kidSafe": true,
+    "steps": [
+      "Lie on your back with your arms pointing at the ceiling and your knees bent at 90° over your hips.",
+      "Press your lower back gently into the floor.",
+      "Slowly lower one arm overhead and the opposite leg toward the floor, keeping your back flat.",
+      "Return to the start and switch sides. Each side counts as one rep."
+    ],
+    "formCues": [
+      "Lower back stays on the floor.",
+      "Breathe out as you reach.",
+      "Slow and controlled."
+    ],
+    "commonMistakes": [
+      "Arching the lower back off the floor.",
+      "Moving too fast.",
+      "Holding your breath."
+    ],
+    "videoUrl": null,
+    "videoTitle": null,
+    "substitutions": []
   }
 ]
