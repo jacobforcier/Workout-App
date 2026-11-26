@@ -43,6 +43,8 @@ export interface WorkoutItem {
   sideNames?: [string, string]
   rest?: RestGuidance
   note?: string
+  /** Equipment this item needs; left out of circuits for athletes without it. */
+  requires?: Equipment
 }
 
 export type BlockFormat = 'sets' | 'circuit' | 'emom' | 'timed'

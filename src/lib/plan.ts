@@ -140,7 +140,10 @@ export function buildPlan(workout: Workout, overrides: PlanOverrides = emptyOver
           section: 'main',
           blockTitle: block.title,
           unitKey,
-          entries: block.items.map((item, i) => entry(prefix, i, item, r)),
+          // Items needing equipment the athlete lacks are left out (item indexes stay stable).
+          entries: block.items.flatMap((item, i) =>
+            item.requires && equipment && !hasEquipment([item.requires], equipment) ? [] : [entry(prefix, i, item, r)],
+          ),
           round: r,
           totalRounds: rounds,
           restAfter: r < rounds ? rest : null,

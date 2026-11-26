@@ -476,14 +476,6 @@
         ]
       },
       {
-        "title": "Ring face pulls",
-        "format": "sets",
-        "requires": "pullup_bar",
-        "items": [
-          { "exerciseId": "ring_face_pull", "sets": 2, "reps": 15, "perSide": false, "rest": { "seconds": 60, "guidance": "Rest about a minute." }, "note": "Light and slow. Squeeze your shoulder blades for a second at the end of each rep." }
-        ]
-      },
-      {
         "title": "Pair 1: goblet squat + row",
         "format": "circuit",
         "rounds": 3,
@@ -494,13 +486,14 @@
         ]
       },
       {
-        "title": "Pair 2: kickstand deadlift + push-ups",
+        "title": "Pair 2: kickstand deadlift + push-ups + face pulls",
         "format": "circuit",
         "rounds": 3,
         "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Do one set of each back to back, then rest 60–90 s." },
         "items": [
           { "exerciseId": "kickstand_deadlift", "reps": 8, "perSide": true, "note": "8–12 reps per side. Back toes on the floor for balance; hips square." },
-          { "exerciseId": "push_up", "reps": 10, "perSide": false, "note": "As many as you can with good form; log what you got." }
+          { "exerciseId": "push_up", "reps": 10, "perSide": false, "note": "As many as you can with good form; log what you got." },
+          { "exerciseId": "ring_face_pull", "reps": 12, "perSide": false, "requires": "pullup_bar", "note": "Light and slow. Squeeze your shoulder blades for a second at the end of each rep." }
         ]
       },
       {
@@ -565,18 +558,13 @@
         ]
       },
       {
-        "title": "Single-leg hip bridge",
-        "format": "sets",
+        "title": "Single-leg hip bridge + hanging knee raise",
+        "format": "circuit",
+        "rounds": 3,
+        "restBetweenRounds": { "seconds": 90, "guidance": "Rest 60–90 s between rounds." },
         "items": [
-          { "exerciseId": "single_leg_hip_bridge", "sets": 3, "reps": 10, "perSide": true, "rest": { "seconds": 90, "guidance": "Rest 60–90 s between sets." }, "note": "10–15 reps per side. Bell on your hip." }
-        ]
-      },
-      {
-        "title": "Hanging knee raises",
-        "format": "sets",
-        "requires": "pullup_bar",
-        "items": [
-          { "exerciseId": "hanging_knee_raise", "sets": 2, "reps": 8, "perSide": false, "rest": { "seconds": 60, "guidance": "Rest about a minute." }, "note": "8–10 reps, no swinging. If your grip or calluses are the limit, swap to dead bugs." }
+          { "exerciseId": "single_leg_hip_bridge", "reps": 10, "perSide": true, "note": "10–15 reps per side. Bell on your hip." },
+          { "exerciseId": "hanging_knee_raise", "reps": 8, "perSide": false, "requires": "pullup_bar", "note": "8–10 reps, no swinging. If your grip or calluses are the limit, swap to dead bugs." }
         ]
       },
       {
@@ -635,14 +623,6 @@
         ]
       },
       {
-        "title": "Ring face pulls",
-        "format": "sets",
-        "requires": "pullup_bar",
-        "items": [
-          { "exerciseId": "ring_face_pull", "sets": 2, "reps": 15, "perSide": false, "rest": { "seconds": 60, "guidance": "Rest about a minute." }, "note": "Light and slow. Squeeze your shoulder blades for a second at the end of each rep." }
-        ]
-      },
-      {
         "title": "Pair 1: reverse lunge + paused row",
         "format": "circuit",
         "rounds": 3,
@@ -653,13 +633,14 @@
         ]
       },
       {
-        "title": "Pair 2: Cossack squat + push-up",
+        "title": "Pair 2: Cossack squat + push-up + face pulls",
         "format": "circuit",
         "rounds": 3,
         "restBetweenRounds": { "seconds": 90, "minSeconds": 60, "guidance": "Do one set of each back to back, then rest 60–90 s." },
         "items": [
           { "exerciseId": "cossack_squat", "reps": 6, "perSide": true, "note": "6–10 reps per side. Bodyweight to start." },
-          { "exerciseId": "feet_elevated_push_up", "reps": 10, "perSide": false, "note": "As many as you can with good form; log what you got." }
+          { "exerciseId": "feet_elevated_push_up", "reps": 10, "perSide": false, "note": "As many as you can with good form; log what you got." },
+          { "exerciseId": "ring_face_pull", "reps": 12, "perSide": false, "requires": "pullup_bar", "note": "Light and slow. Squeeze your shoulder blades for a second at the end of each rep." }
         ]
       },
       {
