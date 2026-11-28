@@ -272,7 +272,9 @@ export function bellForExercise(
       .map((l) => Number(l.weight_lb))
     if (used.length > 0) {
       const heaviest = Math.max(...used)
-      if (heaviest !== lastSession.bell_lb) return heaviest
+      // Follow the session bell only when it moved up from what this exercise used last time
+      // (single-bell athletes stepping up). Never drop an exercise to a lighter session bell.
+      if (heaviest !== lastSession.bell_lb || sessionBell < heaviest) return heaviest
     }
   }
   return sessionBell

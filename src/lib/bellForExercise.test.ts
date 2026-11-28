@@ -23,6 +23,10 @@ describe('bellForExercise', () => {
     // Moving up from 18 to 26: every exercise that was at 18 follows the new session bell.
     expect(bellForExercise('goblet_squat', 26, {}, last(18, [['goblet_squat', 18]]))).toBe(26)
   })
+  it('does not drop an exercise to a lighter session bell', () => {
+    // Last time the session bell and the swing were both 53; today the session bell is 35.
+    expect(bellForExercise('one_arm_swing', 35, {}, last(53, [['one_arm_swing', 53]]))).toBe(53)
+  })
   it('a pick this session beats last time', () => {
     expect(bellForExercise('goblet_squat', 35, { goblet_squat: 35 }, last(35, [['goblet_squat', 53]]))).toBe(35)
   })
